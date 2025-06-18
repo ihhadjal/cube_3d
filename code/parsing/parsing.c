@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/18 16:12:54 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:38:24 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,15 @@ int	parsing(int argc, char **argv, t_map *map)
 	if (argc == 2 && check_file_name(argv[1]) == 0)
 	{
 		map->map_copy = copy_the_map(argv[1]);
-		check_caracters(map->map_copy);
+		map->map_copy = skip_lines(argv[1]);
+		// int	i = 0;
+		// while (map->map_copy[i])
+		// {
+		// 	printf("%s", map->map_copy[i]);
+		// 	i++;
+		// }
+		print_map(map->map_copy);
+		// check_caracters(map->map_copy);
 	}
 	else
 	{
@@ -25,6 +33,35 @@ int	parsing(int argc, char **argv, t_map *map)
 		return (1);
 	}
 	return (0);
+}
+char **skip_lines(char *argv)
+{
+	int	i;
+	int	j;
+	int	fd;
+	char	*lines;
+	char	**pert;
+	
+	pert = malloc(sizeof(char *) * 7);
+	fd = open(argv, O_RDONLY);
+	j = 0;
+	i = 0;
+	lines = get_next_line(fd);
+	while (lines)
+	{
+		if (ft_strchr(lines, '\n') != 0)
+		{
+			pert[j] = lines;
+			j++;
+			i++;	
+		}
+		if (i == 7)
+			break;
+		lines = get_next_line(fd);
+	}
+	pert[j] = NULL;
+	return (pert);
+	close (fd);
 }
 
 char	**copy_the_map(char *argv)
