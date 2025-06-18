@@ -3,25 +3,25 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+         #
+#    By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:33:52 by ilhasnao          #+#    #+#              #
-#    Updated: 2025/06/17 19:45:58 by ilhasnao         ###   ########.fr        #
+#    Updated: 2025/06/18 13:22:17 by ihhadjal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
-LIBFT = libft/
+LIBFT = resources/libft/
 RM = rm -f
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
-SRC_1 = main.c
+SRC_1 = code/main.c code/parsing/parsing.c code/utils/utils.c
 
 OBJ_1 = $(SRC_1:.c=.o)
 
-INCLUDE = -L ./libft -lft
+INCLUDE = -L resources/libft -lft
 
 DEF_COLOR = \033[0m
 PINK = \033[5;95m

@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/17 19:35:38 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:36:16 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
 # define CUBE_H
 
-# include <unistd.h>
+# include "../mlx/mlx.h"
+# include "../mlx/mlx_int.h"
+# include "libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
-# include <stdlib.h>
-# include "./mlx/mlx.h"
-# include "./mlx/mlx_int.h"
-# include "libft/libft.h"
+# include <unistd.h>
 
 # define ESC 65307
 
@@ -27,6 +26,16 @@ typedef struct s_data
 {
 	void	*ptr;
 	void	*win;
-}	t_data;
+}			t_data;
 
+typedef struct s_map
+{
+	char	**map_copy;
+}			t_map;
+
+int			parsing(int argc, char **argv, t_map *map);
+int			check_file_name(char *argv);
+char	**copy_the_map(char *argv);
+void	check_fd(int fd);
+int	count_lines(char *argv);
 #endif
