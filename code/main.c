@@ -6,11 +6,11 @@
 /*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/18 16:32:46 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:36:50 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "../resources/cube.h"
 
 int	free_dem_hoes(t_data *mlx)
 {
@@ -33,23 +33,24 @@ int	on_keypress(int keycode, t_data *mlx)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	*mlx;
-	void	*background;
-
-	mlx = malloc(sizeof(t_data));
-	mlx->ptr = mlx_init();
-	mlx->win = mlx_new_window(mlx->ptr, 920, 640, "Bomboclaat");
-	if (!mlx->win)
+	t_map	map;
+	if (parsing(argc, argv, &map) == 0)
 	{
-		ft_putstr_fd("Error: Failed to create window\n", 2);
-		mlx_loop_end(mlx->ptr);
+		mlx = malloc(sizeof(t_data));
+		mlx->ptr = mlx_init();
+		mlx->win = mlx_new_window(mlx->ptr, 920, 640, "Bomboclaat");
+		if (!mlx->win)
+		{
+			ft_putstr_fd("Error: Failed to create window\n", 2);
+			mlx_loop_end(mlx->ptr);
+		}
+		mlx_key_hook(mlx->win, on_keypress, mlx);
+		mlx_hook(mlx->win, 17, 0, free_dem_hoes, mlx);
+		mlx_loop(mlx->ptr);
+		free_dem_hoes(mlx);
 	}
-	background = mlx_xpm_file_to_image()
-	mlx_key_hook(mlx->win, on_keypress, mlx);
-	mlx_hook(mlx->win, 17, 0, free_dem_hoes, mlx);
-	mlx_loop(mlx->ptr);
-	free_dem_hoes(mlx);
 	return (0);
 }
