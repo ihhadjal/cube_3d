@@ -6,7 +6,7 @@
 #    By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:33:52 by ilhasnao          #+#    #+#              #
-#    Updated: 2025/06/18 13:22:17 by ihhadjal         ###   ########.fr        #
+#    Updated: 2025/06/18 20:40:13 by ihhadjal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,6 @@ clean:
 
 fclean: clean
 		@${RM} ${NAME} ${NAME_BONUS}
-		@rm -rf mlx
 		@cd ${LIBFT} && $(MAKE) fclean
 		@echo "$(CYAN)I'm cleaning hbibi!$< $(DEF_COLOR)"
 
