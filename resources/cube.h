@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/18 20:16:25 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:41:51 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_map
 {
 	char	**map_copy;
 	char	**skip_map;
+	char	**actual_map;
 	int		nord;
 	int		south;
 	int		east;

@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/18 20:38:24 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:50:01 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,8 @@ int	parsing(int argc, char **argv, t_map *map)
 	if (argc == 2 && check_file_name(argv[1]) == 0)
 	{
 		map->map_copy = copy_the_map(argv[1]);
-		map->map_copy = skip_lines(argv[1]);
-		// int	i = 0;
-		// while (map->map_copy[i])
-		// {
-		// 	printf("%s", map->map_copy[i]);
-		// 	i++;
-		// }
-		print_map(map->map_copy);
-		// check_caracters(map->map_copy);
+		map->skip_map = skip_lines(argv[1]);
+		print_map(map->skip_map);
 	}
 	else
 	{
@@ -34,14 +27,14 @@ int	parsing(int argc, char **argv, t_map *map)
 	}
 	return (0);
 }
-char **skip_lines(char *argv)
+char	**skip_lines(char *argv)
 {
-	int	i;
-	int	j;
-	int	fd;
+	int		i;
+	int		j;
+	int		fd;
 	char	*lines;
 	char	**pert;
-	
+
 	pert = malloc(sizeof(char *) * 7);
 	fd = open(argv, O_RDONLY);
 	j = 0;
@@ -49,19 +42,16 @@ char **skip_lines(char *argv)
 	lines = get_next_line(fd);
 	while (lines)
 	{
-		if (ft_strchr(lines, '\n') != 0)
-		{
-			pert[j] = lines;
-			j++;
-			i++;	
-		}
+		pert[j] = lines;
+		j++;
+		i++;
 		if (i == 7)
-			break;
+			break ;
 		lines = get_next_line(fd);
 	}
 	pert[j] = NULL;
+	close(fd);
 	return (pert);
-	close (fd);
 }
 
 char	**copy_the_map(char *argv)
@@ -85,6 +75,7 @@ char	**copy_the_map(char *argv)
 		lines = get_next_line(fd);
 	}
 	map_copy[i] = NULL;
+	close(fd);
 	return (map_copy);
 }
 
@@ -92,7 +83,7 @@ char	**copy_the_map(char *argv)
 // {
 // 	int i;
 // 	int j;
-	
+
 // 	i = 0;
 // 	while (map_copy[i])
 // 	{
