@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/18 14:36:16 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:47:32 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ typedef struct s_data
 typedef struct s_map
 {
 	char	**map_copy;
+	int		nord;
+	int		south;
+	int		east;
+	int		west;
 }			t_map;
 
 int			parsing(int argc, char **argv, t_map *map);
@@ -38,4 +42,6 @@ int			check_file_name(char *argv);
 char	**copy_the_map(char *argv);
 void	check_fd(int fd);
 int	count_lines(char *argv);
+void	check_caracters(char **map_copy);
+void	print_map(char **map);
 #endif

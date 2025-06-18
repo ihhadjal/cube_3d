@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:21:19 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/18 14:36:29 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:46:50 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,16 @@ int	count_lines(char *argv)
 	}
 	close (fd);
 	return (i);
+}
+
+void	print_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
 }

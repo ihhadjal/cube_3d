@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/18 14:50:26 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:47:28 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parsing(int argc, char **argv, t_map *map)
 
 char	**copy_the_map(char *argv)
 {
-	int	fd;
+	int		fd;
 	char	**map_copy;
 	char	*lines;
 	int		i;
@@ -44,9 +44,34 @@ char	**copy_the_map(char *argv)
 		if (lines[ft_strlen(lines) - 1] == '\n')
 			lines[ft_strlen(lines) - 1] = '\0';
 		map_copy[i++] = ft_strdup(lines);
-		free (lines);
+		free(lines);
 		lines = get_next_line(fd);
 	}
 	map_copy[i] = NULL;
 	return (map_copy);
+}
+
+void	check_caracters(char **map_copy)
+{
+	int i;
+	int j;
+	
+	i = 8;
+	while (map_copy[i])
+	{
+		j = 0;
+		while (map_copy[i][j])
+		{
+			if (map_copy[i][j] != '0' && map_copy[i][j] != '1'
+				&& map_copy[i][j] != 'N' && map_copy[i][j] != 'S'
+				&& map_copy[i][j] != 'E' && map_copy[i][j] != 'W'
+				&& map_copy[i][j] != ' ' && map_copy[i][j] != '\t')
+			{
+				printf("error: invalid character found\n");
+				exit (1);
+			}
+			j++;
+		}
+		i++;
+	}
 }
