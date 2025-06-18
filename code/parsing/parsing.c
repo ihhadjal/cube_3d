@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/18 15:47:28 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:12:54 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,26 @@ char	**copy_the_map(char *argv)
 	return (map_copy);
 }
 
-void	check_caracters(char **map_copy)
-{
-	int i;
-	int j;
+// void	check_caracters(char **map_copy)
+// {
+// 	int i;
+// 	int j;
 	
-	i = 8;
-	while (map_copy[i])
-	{
-		j = 0;
-		while (map_copy[i][j])
-		{
-			if (map_copy[i][j] != '0' && map_copy[i][j] != '1'
-				&& map_copy[i][j] != 'N' && map_copy[i][j] != 'S'
-				&& map_copy[i][j] != 'E' && map_copy[i][j] != 'W'
-				&& map_copy[i][j] != ' ' && map_copy[i][j] != '\t')
-			{
-				printf("error: invalid character found\n");
-				exit (1);
-			}
-			j++;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (map_copy[i])
+// 	{
+// 		j = 0;
+// 		while (map_copy[i][j])
+// 		{
+// 			if (map_copy[i][j] != '0' && map_copy[i][j] != '1'
+// 				&& map_copy[i][j] != 'N' && map_copy[i][j] != 'S'
+// 				&& map_copy[i][j] != 'E' && map_copy[i][j] != 'W')
+// 			{
+// 				printf("error: invalid character found\n");
+// 				exit (1);
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
