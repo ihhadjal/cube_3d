@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/18 20:41:51 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:36:30 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,7 @@ typedef struct s_map
 {
 	char	**map_copy;
 	char	**skip_map;
-	char	**actual_map;
-	int		nord;
-	int		south;
-	int		east;
-	int		west;
+	char	**before_map;
 }			t_map;
 
 int			parsing(int argc, char **argv, t_map *map);
@@ -46,5 +42,6 @@ void	check_fd(int fd);
 int	count_lines(char *argv);
 void	check_caracters(char **map_copy);
 void	print_map(char **map);
-char **skip_lines(char *argv);
+char **skip_lines(char **map_copy, char *argv, t_map *map);
+int	is_space(char *str);
 #endif
