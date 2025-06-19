@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/19 11:18:33 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/19 11:34:47 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	parsing(int argc, char **argv, t_map *map)
 	{
 		map->map_copy = copy_the_map(argv[1]);
 		map->skip_map = skip_lines(map->map_copy, argv[1], map);
-		print_map(map->skip_map);
 	}
 	else
 	{
@@ -26,45 +25,6 @@ int	parsing(int argc, char **argv, t_map *map)
 		return (1);
 	}
 	return (0);
-}
-char	**skip_lines(char **map_copy, char *argv, t_map *map)
-{
-	int	i;
-	int	j;
-	int c;
-	char	**skip_map;
-	char	*trim_str;
-	
-	i = 0;
-	j = 0;
-	c = 0;
-	map->before_map = malloc(sizeof(char *) * 7);
-	while (map_copy[i])
-	{
-		trim_str = ft_strtrim(map_copy[i], " \t\n\v\f\r");
-		if (trim_str[0] != '\0')
-		{
-			map->before_map[j] = map_copy[i];
-			j++;
-			c++;
-		}
-		if (c == 6)
-			break;
-		i++;
-	}
-	free (trim_str);
-	map->before_map[j] = NULL;
-	skip_map = malloc(sizeof(char *) * ((count_lines(argv) - 6) + 1));
-	j = 0;
-	i++;
-	while (map_copy[i])
-	{
-		skip_map[j] = map_copy[i];
-		i++;
-		j++;
-	}
-	skip_map[j] = NULL;
-	return (skip_map);
 }
 
 char	**copy_the_map(char *argv)

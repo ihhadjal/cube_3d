@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/18 13:16:20 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/19 11:36:24 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv)
 {
 	t_data	*mlx;
 	t_map	map;
+
 	if (parsing(argc, argv, &map) == 0)
 	{
 		mlx = malloc(sizeof(t_data));
