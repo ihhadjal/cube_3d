@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/18 15:47:32 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:19:03 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <math.h>
 
 # define ESC 65307
 
@@ -26,7 +27,16 @@ typedef struct s_data
 {
 	void	*ptr;
 	void	*win;
+	int		cam_length;
+	int		cam_height;
 }			t_data;
+
+typedef struct s_ray
+{
+	double	camera_x;
+	double	dirx;
+	double	diry;
+}			t_ray;
 
 typedef struct s_map
 {
