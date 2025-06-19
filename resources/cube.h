@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/19 11:28:51 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:27:45 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ typedef struct s_map
 
 int			parsing(int argc, char **argv, t_map *map);
 int			check_file_name(char *argv);
-char	**copy_the_map(char *argv);
-void	check_fd(int fd);
-int	count_lines(char *argv);
-void	check_caracters(char **map_copy);
-void	print_map(char **map);
-char **skip_lines(char **map_copy, char *argv, t_map *map);
-int	is_space(char *str);
-void	after_copy_logic(t_map *map, int i, char *argv, char **map_copy);
+char		**copy_the_map(char *argv);
+void		check_fd(int fd);
+int			count_lines(char *argv);
+void		check_map_validity(char **map_copy);
+void		print_map(char **map);
+char		**skip_lines(char **map_copy, char *argv, t_map *map);
+int			is_space(char *str);
+void		after_copy_logic(t_map *map, int i, char *argv, char **map_copy);
+void		check_characters(char *map_copy);
 #endif
