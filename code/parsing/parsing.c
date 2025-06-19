@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/19 15:30:06 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:43:45 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ void	check_characters(char *map_copy)
 	{
 		if ((map_copy[i] != '0' && map_copy[i] != '1') && (map_copy[i] != 'N'
 				&& map_copy[i] != 'S') && (map_copy[i] != 'E'
-				&& map_copy[i] != 'W') && (map_copy[i] != ' '
-				&& map_copy[i] != '\t' && map_copy[i] != '\0'))
+				&& map_copy[i] != 'W') && (map_copy[i] != '\t' && map_copy[i] != '\0' && map_copy[i] != ' '))
 		{
 			printf("error: invalid character found\n");
 			exit(1);
