@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/19 15:27:45 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:54:01 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_map
 	char	**skip_map;
 	char	**before_map;
 	char	**after_map;
+	char	**rectangular_map;
+	char	**dummy_map;
 	char	*trim_str;
 }			t_map;
 
@@ -48,4 +50,8 @@ char		**skip_lines(char **map_copy, char *argv, t_map *map);
 int			is_space(char *str);
 void		after_copy_logic(t_map *map, int i, char *argv, char **map_copy);
 void		check_characters(char *map_copy);
+void	check_map_boundaries(char **map);
+int	find_biggest_len(char **map);
+char	**map_scan(char **map, char *argv);
+char	**create_rectangular(char **map_copy);
 #endif
