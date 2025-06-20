@@ -6,7 +6,7 @@
 #    By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:33:52 by ilhasnao          #+#    #+#              #
-#    Updated: 2025/06/19 11:23:12 by ihhadjal         ###   ########.fr        #
+#    Updated: 2025/06/20 18:59:59 by ihhadjal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ LIBFT = resources/libft/
 RM = rm -f
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
-SRC_1 = code/main.c code/parsing/parsing.c code/utils/utils.c code/parsing/skiplines_logic.c
+SRC_1 = code/main.c code/parsing/parsing.c code/utils/utils.c code/parsing/skiplines_logic.c \
+code/utils/utils2.c
 
 OBJ_1 = $(SRC_1:.c=.o)
 
