@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 18:58:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/20 18:59:39 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/21 11:39:50 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,27 @@ char	**map_scan(char **map, char *argv)
 	}
 	map_copy[i] = NULL;
 	return (map_copy);
+}
+
+void	ft_error(char *str, char **map)
+{
+	printf("%s", str);
+	if (map != NULL)
+		free_map(map);
+	exit(EXIT_FAILURE);
+}
+
+void	free_map(char **map)
+{
+	int	i;
+
+	if (!map)
+		return ;
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }

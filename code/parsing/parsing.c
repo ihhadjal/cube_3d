@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/20 19:03:35 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/21 13:00:42 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int	parsing(int argc, char **argv, t_map *map)
 		map->skip_map = skip_lines(map->map_copy, argv[1], map);
 		map->dummy_map = map_scan(map->skip_map, argv[1]);
 		map->rectangular_map = create_rectangular(map->dummy_map, map);
+		find_starting_position(map->rectangular_map, map);
+		print_map(map->rectangular_map);
+		// check_map_validity(map->skip_map);
 	}
 	else
 	{
@@ -28,6 +31,7 @@ int	parsing(int argc, char **argv, t_map *map)
 	}
 	return (0);
 }
+
 
 char	**create_rectangular(char **map_copy, t_map *map)
 {
@@ -98,10 +102,10 @@ void	check_map_validity(char **map_copy)
 			started = 1;
 		else if (started == 1)
 		{
-			printf("error: empty line in map\n");
+			ft_error("error: empty line in map\n", map_copy);
 			exit(1);
 		}
-		// check_characters(map_copy[i]);
+		check_characters(map_copy[i]);
 		i++;
 	}
 }
@@ -113,12 +117,14 @@ void	check_characters(char *map_copy)
 	i = 0;
 	while (map_copy[i])
 	{
-		if ((map_copy[i] != '0' && map_copy[i] != '1') && (map_copy[i] != 'N'
-				&& map_copy[i] != 'S') && (map_copy[i] != 'E'
+		if (map_copy[i] == ' ')
+			i++;
+		else if ((map_copy[i] != '0' && map_copy[i] != '1')
+			&& (map_copy[i] != 'N' && map_copy[i] != 'S') && (map_copy[i] != 'E'
 				&& map_copy[i] != 'W') && (map_copy[i] != '\t'
-				&& map_copy[i] != '\0' && map_copy[i] != ' '))
+				&& map_copy[i] != '\0'))
 		{
-			printf("error: invalid character found\n");
+			ft_error("error: invalid character found\n", &map_copy);
 			exit(1);
 		}
 		i++;

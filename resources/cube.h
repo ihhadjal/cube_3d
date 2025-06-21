@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/20 19:02:26 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/21 12:58:41 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ typedef struct s_map
 	int		i;
 	int		j;
 	int		current_len;
+	int		start_x;
+	int		start_y;
+	int		height;
+	int		length;
 }			t_map;
 
 int			parsing(int argc, char **argv, t_map *map);
@@ -58,4 +62,10 @@ void	check_map_boundaries(char **map);
 int	find_biggest_len(char **map);
 char	**map_scan(char **map, char *argv);
 char	**create_rectangular(char **map_copy, t_map *map);
+void	find_starting_position(char **rec_map, t_map *map);
+void	free_map(char **map);
+void	ft_error(char *str, char **map);
+void	flood_fill(char **rec_map, int x, int y, t_map *map);
+void	check_spaces(char **rec_map);
+void	calculate_height(char **rec_map, t_map *map);
 #endif
