@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/21 13:00:42 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/21 13:17:20 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	parsing(int argc, char **argv, t_map *map)
 		map->dummy_map = map_scan(map->skip_map, argv[1]);
 		map->rectangular_map = create_rectangular(map->dummy_map, map);
 		find_starting_position(map->rectangular_map, map);
-		print_map(map->rectangular_map);
-		// check_map_validity(map->skip_map);
+		// print_map(map->rectangular_map);
+		check_map_validity(map->skip_map);
 	}
 	else
 	{
@@ -124,7 +124,8 @@ void	check_characters(char *map_copy)
 				&& map_copy[i] != 'W') && (map_copy[i] != '\t'
 				&& map_copy[i] != '\0'))
 		{
-			ft_error("error: invalid character found\n", &map_copy);
+			// ft_error("error: invalid character found\n", &map_copy);
+			printf("error: invalid character found\n");
 			exit(1);
 		}
 		i++;
