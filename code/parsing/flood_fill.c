@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 11:27:28 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/21 13:01:36 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/21 13:11:59 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,40 @@ void	calculate_height(char **rec_map, t_map *map)
 void	flood_fill(char **rec_map, int x, int y, t_map *map)
 {
 	if (x < 0 || y < 0 || x >= map->length || y >= map->height
-		|| ft_strchr("F V", rec_map[y][x]))
+		|| ft_strchr("F V1", rec_map[y][x]))
 		return ;
 	rec_map[y][x] = 'F';
 	flood_fill(rec_map, x + 1, y, map);
 	flood_fill(rec_map, x - 1, y, map);
 	flood_fill(rec_map, x, y + 1, map);
 	flood_fill(rec_map, x, y - 1, map);
+	if (check_flood(rec_map) == 1)
+		ft_error("error: found space inside the map\n", rec_map);
+}
+
+int	check_flood(char **rec_map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (rec_map[i])
+	{
+		j = 0;
+		while (rec_map[i][j])
+		{
+			if (rec_map[i][j] == 'F')
+			{
+				if (rec_map[i + 1][j] == ' ' || rec_map[i - 1][j] == ' '
+					|| rec_map[i][j + 1] == ' ' || rec_map[i][j - 1] == ' ')
+					return (1);
+				else if (rec_map[i + 1][j] == 'V' || rec_map[i - 1][j] == 'V'
+					|| rec_map[i][j + 1] == 'V' || rec_map[i][j - 1] == 'V')
+					return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }

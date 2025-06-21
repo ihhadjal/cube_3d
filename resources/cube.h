@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/21 12:58:41 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/21 13:09:46 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void	ft_error(char *str, char **map);
 void	flood_fill(char **rec_map, int x, int y, t_map *map);
 void	check_spaces(char **rec_map);
 void	calculate_height(char **rec_map, t_map *map);
+int	check_flood(char **rec_map);
 #endif
