@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/19 20:19:03 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:32:10 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,31 @@
 # include <math.h>
 
 # define ESC 65307
-
-typedef struct s_data
-{
-	void	*ptr;
-	void	*win;
-	int		cam_length;
-	int		cam_height;
-}			t_data;
-
 typedef struct s_ray
 {
 	double	camera_x;
 	double	dirx;
 	double	diry;
 }			t_ray;
+
+typedef struct s_pos
+{
+	double	time;
+	double	old_time;
+	int		x;
+	double	x;
+	double	y;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+}			t_pos;
 
 typedef struct s_map
 {
@@ -46,6 +56,17 @@ typedef struct s_map
 	int		east;
 	int		west;
 }			t_map;
+
+typedef struct s_data
+{
+	void	*ptr;
+	void	*win;
+	int		cam_length;
+	int		cam_height;
+	t_ray	*ray;
+	t_pos	*pos;
+	t_map	*map;
+}			t_data;
 
 int			parsing(int argc, char **argv, t_map *map);
 int			check_file_name(char *argv);
