@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/23 15:32:10 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/06/26 21:09:04 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,12 @@ typedef struct s_pos
 {
 	double	time;
 	double	old_time;
-	int		x;
 	double	x;
 	double	y;
 	double	dirx;
 	double	diry;
-	double	planex;
-	double	planey;
 	double	posx;
 	double	posy;
-	double	dirx;
-	double	diry;
 	double	planex;
 	double	planey;
 }			t_pos;
@@ -57,6 +52,31 @@ typedef struct s_map
 	int		west;
 }			t_map;
 
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
+
+typedef struct s_dda
+{
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+}	t_dda;
+
 typedef struct s_data
 {
 	void	*ptr;
@@ -66,6 +86,8 @@ typedef struct s_data
 	t_ray	*ray;
 	t_pos	*pos;
 	t_map	*map;
+	t_color	*rgb;
+	t_dda	*algo;
 }			t_data;
 
 int			parsing(int argc, char **argv, t_map *map);
