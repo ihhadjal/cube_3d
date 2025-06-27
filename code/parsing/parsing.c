@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/21 13:17:20 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:13:44 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,43 +20,42 @@ int	parsing(int argc, char **argv, t_map *map)
 		map->skip_map = skip_lines(map->map_copy, argv[1], map);
 		map->dummy_map = map_scan(map->skip_map, argv[1]);
 		map->rectangular_map = create_rectangular(map->dummy_map, map);
-		find_starting_position(map->rectangular_map, map);
-		// print_map(map->rectangular_map);
+		check_rectangular(map->rectangular_map);
+		print_map(map->rectangular_map);
 		check_map_validity(map->skip_map);
 	}
 	else
 	{
-		printf("error: map is needed\n");
+		printf("error: map path is needed\n");
 		return (1);
 	}
 	return (0);
 }
 
-
 char	**create_rectangular(char **map_copy, t_map *map)
 {
 	char	*new_str;
 
-	map->biggest_len = find_biggest_len(map_copy);
+	map->biggest_len = find_biggest_len(map_copy) + 1;
 	map->i = 0;
 	while (map_copy[map->i])
 	{
 		map->current_len = ft_strlen(map_copy[map->i]);
-		if (map->current_len < map->biggest_len)
+		new_str = malloc(sizeof(char) * (map->biggest_len + 1));
+		map->j = 0;
+		while (map->j < map->current_len)
 		{
-			map->j = 0;
-			new_str = malloc(sizeof(char) * (map->biggest_len + 1));
-			while (map->j < map->current_len)
-			{
+			if (map_copy[map->i][map->j] == ' ')
+				new_str[map->j] = 'V';
+			else
 				new_str[map->j] = map_copy[map->i][map->j];
-				map->j++;
-			}
-			while (map->j < map->biggest_len)
-				new_str[map->j++] = 'V';
-			new_str[map->biggest_len] = '\0';
-			free(map_copy[map->i]);
-			map_copy[map->i] = new_str;
+			map->j++;
 		}
+		while (map->j < map->biggest_len)
+			new_str[map->j++] = 'V';
+		new_str[map->biggest_len] = '\0';
+		free(map_copy[map->i]);
+		map_copy[map->i] = new_str;
 		map->i++;
 	}
 	return (map_copy);
@@ -112,7 +111,7 @@ void	check_map_validity(char **map_copy)
 
 void	check_characters(char *map_copy)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map_copy[i])
@@ -122,9 +121,8 @@ void	check_characters(char *map_copy)
 		else if ((map_copy[i] != '0' && map_copy[i] != '1')
 			&& (map_copy[i] != 'N' && map_copy[i] != 'S') && (map_copy[i] != 'E'
 				&& map_copy[i] != 'W') && (map_copy[i] != '\t'
-				&& map_copy[i] != '\0'))
+				&& map_copy[i] != 'V'))
 		{
-			// ft_error("error: invalid character found\n", &map_copy);
 			printf("error: invalid character found\n");
 			exit(1);
 		}
