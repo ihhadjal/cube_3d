@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/27 19:03:43 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:37:07 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,12 @@ char		**skip_lines(char **map_copy, char *argv, t_map *map);
 int			is_space(char *str);
 void		after_copy_logic(t_map *map, int i, char *argv, char **map_copy);
 void		check_characters(char *map_copy);
-void	check_map_boundaries(char **rec_map, t_map *map);
 int	find_biggest_len(char **map);
 char	**map_scan(char **map, char *argv);
 char	**create_rectangular(char **map_copy, t_map *map);
-void	find_starting_position(char **rec_map, t_map *map);
 void	free_map(char **map);
 void	ft_error(char *str, char **map);
-void	flood_fill(char **rec_map, int x, int y, t_map *map);
-void	check_spaces(char **rec_map);
-void	calculate_height(char **rec_map, t_map *map);
-int	check_flood(char **rec_map);
-void	check_all_spaces(char **rec_map, t_map *map);
-int		void_space(char **rec_map, int x, int y, t_map *map);
-void	trim_spaces(char **map, char *argv,t_map *map_p);
-void	check_walls(char **trim_map);
 void	check_rectangular(char **rec_map);
+void	check_instructions(char **map_copy);
+void	check_paths(char **before_map);
 #endif

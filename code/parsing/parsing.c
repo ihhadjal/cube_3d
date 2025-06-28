@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/27 19:13:44 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:59:37 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ int	parsing(int argc, char **argv, t_map *map)
 	if (argc == 2 && check_file_name(argv[1]) == 0)
 	{
 		map->map_copy = copy_the_map(argv[1]);
+		check_instructions(map->map_copy);
 		map->skip_map = skip_lines(map->map_copy, argv[1], map);
+		check_paths(map->before_map);
+		check_map_validity(map->skip_map);
 		map->dummy_map = map_scan(map->skip_map, argv[1]);
 		map->rectangular_map = create_rectangular(map->dummy_map, map);
 		check_rectangular(map->rectangular_map);
-		print_map(map->rectangular_map);
-		check_map_validity(map->skip_map);
+		// print_map(map->before_map);
 	}
 	else
 	{
@@ -32,6 +34,45 @@ int	parsing(int argc, char **argv, t_map *map)
 	return (0);
 }
 
+void	check_instructions(char **map_copy)
+{
+	int	i;
+	int	f;
+
+	f = 0;
+	i = 0;
+	while (map_copy[i])
+	{
+		if (ft_strstr(map_copy[i], "NO") || ft_strstr(map_copy[i], "SO")
+			|| ft_strstr(map_copy[i], "WE") || ft_strstr(map_copy[i], "EA")
+			|| ft_strchr(map_copy[i], 'C') || ft_strchr(map_copy[i], 'F'))
+			f++;
+		i++;
+	}
+	if (f != 6)
+	{
+		printf("error: instructions are missing\n");
+		exit(1);
+	}
+}
+
+void	check_paths(char **before_map)
+{
+	char	**split_str;
+	int		i;
+
+	i = 0;
+	while (before_map[i] && i < 4)
+	{
+		split_str = ft_split(before_map[i], 32);
+		if (open(split_str[1], O_RDONLY) == -1)
+		{
+			printf("error: path not found\n");
+			exit (1);
+		}
+		i++;
+	}
+}
 char	**create_rectangular(char **map_copy, t_map *map)
 {
 	char	*new_str;
@@ -121,7 +162,7 @@ void	check_characters(char *map_copy)
 		else if ((map_copy[i] != '0' && map_copy[i] != '1')
 			&& (map_copy[i] != 'N' && map_copy[i] != 'S') && (map_copy[i] != 'E'
 				&& map_copy[i] != 'W') && (map_copy[i] != '\t'
-				&& map_copy[i] != 'V'))
+				&& map_copy[i] != '\0'))
 		{
 			printf("error: invalid character found\n");
 			exit(1);

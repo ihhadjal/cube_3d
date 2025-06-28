@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 11:22:31 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/19 14:46:51 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/28 14:47:36 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	**skip_lines(char **map_copy, char *argv, t_map *map)
 void	after_copy_logic(t_map *map, int i, char *argv, char **map_copy)
 {
 	int	j;
-	
 	map->after_map = malloc(sizeof(char *) * ((count_lines(argv) - 6) + 1));
 	j = 0;
 	i++;
