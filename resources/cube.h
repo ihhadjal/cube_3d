@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/28 15:37:07 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:14:28 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,7 @@ void	ft_error(char *str, char **map);
 void	check_rectangular(char **rec_map);
 void	check_instructions(char **map_copy);
 void	check_paths(char **before_map);
+int		check_nums(char *str);
+void	big_condition(char **rec_map, int i, int j);
+void	free_maps(t_map *map);
 #endif

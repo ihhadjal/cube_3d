@@ -1,107 +1,139 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   get_next_line.c									:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: ilhasnao <ilhasnao@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2024/11/25 09:16:49 by ilhasnao		  #+#	#+#			 */
-/*   Updated: 2024/11/26 13:26:04 by ilhasnao		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/20 16:23:47 by ihhadjal          #+#    #+#             */
+/*   Updated: 2025/06/29 17:13:16 by ihhadjal         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_oldbuffer(char **buffer, char *temp)
-{
-	char	*old_buffer;
-
-	old_buffer = *buffer;
-	*buffer = ft_sstrjoin(*buffer, temp);
-	free(old_buffer);
-}
-
-char	*ft_update_buffer(char const *line, char *buffer)
+char	*ft_extract(char *stash)
 {
 	int		i;
-	int		index;
-	char	*updated_buffer;
+	int		j;
+	char	*nouvelle_stash;
 
 	i = 0;
-	while (buffer[i] != '\n' && buffer[i] != '\0')
+	while (stash[i] && stash[i] != '\n')
 		i++;
-	index = ft_sstrlen(line);
-	if (buffer[i] == '\0')
+	if (!stash[i])
 	{
-		return (ft_free(buffer, NULL));
-	}
-	i++;
-	updated_buffer = malloc(sizeof(char) * (ft_sstrlen(buffer) - index + 1));
-	if (!updated_buffer)
-	{
-		free (buffer);
+		free (stash);
 		return (NULL);
 	}
+	nouvelle_stash = malloc(sizeof(char) * (ft_sstrlen(stash) - i + 1));
+	i++;
+	j = 0;
+	while (stash[i])
+	{
+		nouvelle_stash[j] = stash[i];
+		j++;
+		i++;
+	}
+	free (stash);
+	nouvelle_stash[j] = '\0';
+	return (nouvelle_stash);
+}
+
+char	*ft_ligne(char *stash)
+{
+	char	*str;
+	int		i;
+
 	i = 0;
-	while (buffer[index] != '\0')
-		updated_buffer[i++] = buffer[index++];
-	updated_buffer[i] = '\0';
-	free(buffer);
-	return (updated_buffer);
+	if (!stash)
+		return (NULL);
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	str = malloc(sizeof(char) * (i + 2));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (stash[i] && stash[i] != '\n')
+	{
+		str[i] = stash[i];
+		i++;
+	}
+	if (stash[i] == '\n')
+	{
+		str[i] = '\n';
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*free_all(char	*str, char	*stash)
+{
+	free (str);
+	free (stash);
+	return (NULL);
+}
+
+char	*ft_read(int fd, char *stash)
+{
+	char	*tmp;
+	char	*str;
+	int		lu;
+
+	if (!stash)
+		stash = ft_sstrdup("");
+	lu = 1;
+	str = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!str)
+		return (NULL);
+	while (!ft_sstrchr(stash, '\n') && lu != 0)
+	{
+		lu = read(fd, str, BUFFER_SIZE);
+		if (lu == -1)
+			return (free_all(str, stash));
+		str[lu] = '\0';
+		tmp = ft_sstrjoin(stash, str);
+		free(stash);
+		stash = tmp;
+	}
+	free(str);
+	return (stash);
 }
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer = NULL;
-	char			*temp;
-	char			*line;
-	ssize_t			r_b;
+	static char	*stash;
+	char		*line;
 
-	temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!temp)
-		return (ft_free(buffer, NULL));
-	while (!ft_sstrchr(buffer, '\n'))
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	stash = ft_read(fd, stash);
+	if (!stash)
+		return (NULL);
+	line = ft_ligne(stash);
+	stash = ft_extract(stash);
+	if (line[0] == '\0')
 	{
-		r_b = read(fd, temp, BUFFER_SIZE);
-		if (r_b <= 0)
-		{
-			if (r_b == 0)
-				break ;
-			return (ft_free(buffer, temp));
-		}
-		temp[r_b] = '\0';
-		ft_oldbuffer(&buffer, temp);
+		free (stash);
+		free (line);
+		return (NULL);
 	}
-	if (!buffer || buffer[0] == '\0')
-		return (ft_free(buffer, temp));
-	line = ft_sstrdup(buffer);
-	buffer = ft_update_buffer(line, buffer);
-	return (free(temp), line);
+	return (line);
 }
 
-// int	main (void)
+// #include <stdio.h>
+// int	main(void)
 // {
-// 	int fd;
-//     char *line;
-
-//     fd = open("Bomboclaat.txt", O_RDONLY);
-//     if (fd == -1)
-//     {
-//         perror("Error opening file");
-//         return (1);
-//     }
-
-//     // Lire le fichier ligne par ligne
-//     while ((line = get_next_line(fd)) != NULL)
-//     {
-//         printf("%s", line);
-//         free(line); // Libérer la mémoire allouée par get_next_line
-//     }
-
-//     // Fermer le fichier
-//     if (close(fd) == -1)
-//     {
-//         perror("Error closing file");
-//         return (1);
-//     }
+// 	int	fd;
+// 	char *line;
+// 	fd = open("get_next_line.c", O_RDONLY);
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		if (line == NULL)
+// 			break;
+// 		printf("%s", line);
+// 		free (line);
+// 	}
 // }

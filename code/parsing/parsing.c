@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/28 15:59:37 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:15:22 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,45 +34,6 @@ int	parsing(int argc, char **argv, t_map *map)
 	return (0);
 }
 
-void	check_instructions(char **map_copy)
-{
-	int	i;
-	int	f;
-
-	f = 0;
-	i = 0;
-	while (map_copy[i])
-	{
-		if (ft_strstr(map_copy[i], "NO") || ft_strstr(map_copy[i], "SO")
-			|| ft_strstr(map_copy[i], "WE") || ft_strstr(map_copy[i], "EA")
-			|| ft_strchr(map_copy[i], 'C') || ft_strchr(map_copy[i], 'F'))
-			f++;
-		i++;
-	}
-	if (f != 6)
-	{
-		printf("error: instructions are missing\n");
-		exit(1);
-	}
-}
-
-void	check_paths(char **before_map)
-{
-	char	**split_str;
-	int		i;
-
-	i = 0;
-	while (before_map[i] && i < 4)
-	{
-		split_str = ft_split(before_map[i], 32);
-		if (open(split_str[1], O_RDONLY) == -1)
-		{
-			printf("error: path not found\n");
-			exit (1);
-		}
-		i++;
-	}
-}
 char	**create_rectangular(char **map_copy, t_map *map)
 {
 	char	*new_str;
@@ -130,21 +91,10 @@ char	**copy_the_map(char *argv)
 void	check_map_validity(char **map_copy)
 {
 	int		i;
-	char	*trim_str;
-	int		started;
 
 	i = 0;
-	started = 0;
 	while (map_copy[i])
 	{
-		trim_str = ft_strtrim(map_copy[i], "\t\n\v\f\r");
-		if (trim_str[0] != '\0')
-			started = 1;
-		else if (started == 1)
-		{
-			ft_error("error: empty line in map\n", map_copy);
-			exit(1);
-		}
 		check_characters(map_copy[i]);
 		i++;
 	}

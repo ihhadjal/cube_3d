@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/19 11:36:24 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:26:33 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv)
 		mlx_hook(mlx->win, 17, 0, free_dem_hoes, mlx);
 		mlx_loop(mlx->ptr);
 		free_dem_hoes(mlx);
+		free_maps(&map);
 	}
 	return (0);
 }

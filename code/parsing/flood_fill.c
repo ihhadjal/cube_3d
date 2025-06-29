@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 11:27:28 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/27 19:16:33 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/29 17:18:58 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,30 @@ void	check_rectangular(char **rec_map)
 		{
 			if (rec_map[i][j] == 'V')
 			{
-				if ((rec_map[i + 1] && (rec_map[i + 1][j] == '0' || rec_map[i
-							+ 1][j] == 'N' || rec_map[i + 1][j] == 'S'
-							|| rec_map[i + 1][j] == 'E' || rec_map[i
-							+ 1][j] == 'W')) || (i > 0 && (rec_map[i
-							- 1][j] == '0' || rec_map[i - 1][j] == 'N'
-							|| rec_map[i - 1][j] == 'S' || rec_map[i
-							- 1][j] == 'E' || rec_map[i - 1][j] == 'W'))
-					|| (rec_map[i][j + 1] && (rec_map[i][j + 1] == '0'
-							|| rec_map[i][j + 1] == 'N' || rec_map[i][j
-							+ 1] == 'S' || rec_map[i][j + 1] == 'E'
-							|| rec_map[i][j + 1] == 'W')) || (j > 0
-						&& (rec_map[i][j - 1] == '0' || rec_map[i][j - 1] == 'N'
-							|| rec_map[i][j - 1] == 'S' || rec_map[i][j
-							- 1] == 'E' || rec_map[i][j - 1] == 'W')))
-				{
-					printf("error: space found inside the map\n");
-					exit(1);
-				}
+				big_condition(rec_map, i, j);
 			}
 			j++;
 		}
 		i++;
+	}
+}
+
+void	big_condition(char **rec_map, int i, int j)
+{
+	if ((rec_map[i + 1] && (rec_map[i + 1][j] == '0' 
+				|| rec_map[i + 1][j] == 'N'
+				|| rec_map[i + 1][j] == 'S' || rec_map[i + 1][j] == 'E'
+				|| rec_map[i + 1][j] == 'W')) || (i > 0 && (rec_map[i
+				- 1][j] == '0' || rec_map[i - 1][j] == 'N' || rec_map[i
+				- 1][j] == 'S' || rec_map[i - 1][j] == 'E' || rec_map[i
+				- 1][j] == 'W')) || (rec_map[i][j + 1] && (rec_map[i][j
+				+ 1] == '0' || rec_map[i][j + 1] == 'N' || rec_map[i][j
+				+ 1] == 'S' || rec_map[i][j + 1] == 'E' || rec_map[i][j
+				+ 1] == 'W')) || (j > 0 && (rec_map[i][j - 1] == '0'
+				|| rec_map[i][j - 1] == 'N' || rec_map[i][j - 1] == 'S'
+				|| rec_map[i][j - 1] == 'E' || rec_map[i][j - 1] == 'W')))
+	{
+		printf("error: space found inside the map\n");
+		exit(1);
 	}
 }
