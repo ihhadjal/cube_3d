@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:18:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 13:31:01 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 14:20:35 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ void	check_paths(char **before_map)
 				printf("error: path not found\n");
 				free_map(split_str);
 				exit(1);
+			}
+			if (check_xpm(split_str[1]) == 1)
+			{
+				printf("error: xpm only\n");
+				exit (1);
 			}
 		}
 		else if (!ft_strcmp(split_str[0], "C") || !ft_strcmp(split_str[0], "F"))

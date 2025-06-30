@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 12:31:34 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 13:21:18 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 14:17:41 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,12 @@ int	is_alpha(char *str)
 			return (1);
 		i++;
 	}
+	return (0);
+}
+
+int	check_xpm(char *str)
+{
+	if (ft_strncmp(str + ft_strlen(str) - 4, ".xpm", 4))
+		return (1);
 	return (0);
 }
