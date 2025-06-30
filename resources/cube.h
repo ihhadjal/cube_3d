@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/30 14:17:36 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:01:40 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ void	error(int x, int y);
 void	find_position(char **map_copy);
 int	is_alpha(char *str);
 int	check_xpm(char *str);
+void	check_RGB(char *str);
 #endif

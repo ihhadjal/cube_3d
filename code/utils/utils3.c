@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:18:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 14:20:35 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:01:12 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	check_paths(char **before_map)
 				free_map(split_str);
 				exit (1);
 			}
+			check_RGB(split_str[1]);
 		}
 		free_map(split_str);
 		i++;
