@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:18:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 16:01:12 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:11:58 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	check_instructions(char **before_map)
 			|| !ft_strcmp(split_str[0], "EA") || !ft_strcmp(split_str[0], "WE")
 			|| !ft_strcmp(split_str[0], "F") || !ft_strcmp(split_str[0], "C"))
 			c++;
+		free_map(split_str);
 		i++;
 	}
 	if (c != 6)
