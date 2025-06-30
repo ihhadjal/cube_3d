@@ -6,13 +6,13 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 12:19:06 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/18 12:20:58 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:38:37 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] && s2[i] && s1[i] == s2[i])

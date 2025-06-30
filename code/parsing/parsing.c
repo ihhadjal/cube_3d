@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 12:33:22 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:23:11 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	parsing(int argc, char **argv, t_map *map)
 		map->map_copy = copy_the_map(argv[1]);
 		map->skip_map = skip_lines(map->map_copy, argv[1], map);
 		check_instructions(map->before_map);
-		// print_map(map->before_map);
 		check_paths(map->before_map);
 		check_map_validity(map->skip_map);
 		map->dummy_map = map_scan(map->skip_map, argv[1]);
@@ -47,8 +46,7 @@ char	**create_rectangular(char **map_copy, t_map *map)
 		map->j = 0;
 		while (map->j < map->current_len)
 		{
-			if (map_copy[map->i][map->j] == ' '
-				|| map_copy[map->i][map->j] == '\t')
+			if (map_copy[map->i][map->j] == ' ')
 				new_str[map->j] = 'V';
 			else
 				new_str[map->j] = map_copy[map->i][map->j];

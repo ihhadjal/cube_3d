@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 11:27:28 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 10:50:43 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:22:35 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	check_rectangular(char **rec_map)
 
 void	big_condition(char **rec_map, int i, int j)
 {
-	if ((rec_map[i + 1] && (rec_map[i + 1][j] == '0' 
-				|| rec_map[i + 1][j] == 'N'
-				|| rec_map[i + 1][j] == 'S' || rec_map[i + 1][j] == 'E'
+	if ((rec_map[i + 1] && (rec_map[i + 1][j] == '0'
+			|| rec_map[i + 1][j] == 'N'
+		|| rec_map[i + 1][j] == 'S' || rec_map[i + 1][j] == 'E'
 				|| rec_map[i + 1][j] == 'W')) || (i > 0 && (rec_map[i
 				- 1][j] == '0' || rec_map[i - 1][j] == 'N' || rec_map[i
 				- 1][j] == 'S' || rec_map[i - 1][j] == 'E' || rec_map[i

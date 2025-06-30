@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 18:58:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 13:16:52 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:25:10 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void	free_map(char **map)
 	free(map);
 }
 
-int		check_nums(char *str)
+int	check_nums(char *str)
 {
-	int	i;
+	int		i;
 	char	**numbers;
 	int		integer;
-	
+
 	numbers = ft_split(str, ',');
 	i = 0;
 	while (numbers[i])

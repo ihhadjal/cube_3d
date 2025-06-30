@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/30 16:01:40 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:35:02 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,22 @@ char		**skip_lines(char **map_copy, char *argv, t_map *map);
 int			is_space(char *str);
 void		after_copy_logic(t_map *map, int i, char *argv, char **map_copy);
 void		check_characters(char *map_copy);
-int	find_biggest_len(char **map);
-char	**map_scan(char **map, char *argv);
-char	**create_rectangular(char **map_copy, t_map *map);
-void	free_map(char **map);
-void	ft_error(char *str, char **map);
-void	check_rectangular(char **rec_map);
-void	check_instructions(char **map_copy);
-void	check_paths(char **before_map);
-int		check_nums(char *str);
-void	big_condition(char **rec_map, int i, int j);
-void	free_maps(t_map *map);
-void	check_doubles(char **map_copy);
-void	error(int x, int y);
-void	find_position(char **map_copy);
-int	is_alpha(char *str);
-int	check_xpm(char *str);
-void	check_RGB(char *str);
+int			find_biggest_len(char **map);
+char		**map_scan(char **map, char *argv);
+char		**create_rectangular(char **map_copy, t_map *map);
+void		free_map(char **map);
+void		ft_error(char *str, char **map);
+void		check_rectangular(char **rec_map);
+void		check_instructions(char **map_copy);
+void		check_paths(char **before_map);
+int			check_nums(char *str);
+void		big_condition(char **rec_map, int i, int j);
+void		free_maps(t_map *map);
+void		check_doubles(char **map_copy);
+void		error(int x, int y);
+void		find_position(char **map_copy);
+int			is_alpha(char *str);
+int			check_xpm(char *str);
+void		check_rgb(char *str);
+void		check_c_f(char **split_str);
 #endif

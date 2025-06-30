@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 12:31:34 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 16:08:46 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:34:48 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_xpm(char *str)
 	return (0);
 }
 
-void	check_RGB(char *str)
+void	check_rgb(char *str)
 {
 	int		i;
 	char	**split_str;
@@ -59,6 +59,27 @@ void	check_RGB(char *str)
 		printf("error: RGB is not right\n");
 		free_map(split_str);
 		exit(1);
+	}
+	free_map(split_str);
+}
+
+void	check_c_f(char **split_str)
+{
+	if (!ft_strcmp(split_str[0], "C") || !ft_strcmp(split_str[0], "F"))
+	{
+		if (check_nums(split_str[1]) == 1)
+		{
+			printf("error: RGB out of range\n");
+			free_map(split_str);
+			exit(1);
+		}
+		if (is_alpha(split_str[1]) == 1)
+		{
+			printf("error: numbers only\n");
+			free_map(split_str);
+			exit(1);
+		}
+		check_rgb(split_str[1]);
 	}
 	free_map(split_str);
 }

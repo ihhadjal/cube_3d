@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:18:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 16:11:58 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:33:28 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,10 @@ void	check_paths(char **before_map)
 			if (check_xpm(split_str[1]) == 1)
 			{
 				printf("error: xpm only\n");
-				exit (1);
-			}
-		}
-		else if (!ft_strcmp(split_str[0], "C") || !ft_strcmp(split_str[0], "F"))
-		{
-			if (check_nums(split_str[1]) == 1)
-			{
-				printf("error: RGB out of range\n");
-				free_map(split_str);
 				exit(1);
 			}
-			if (is_alpha(split_str[1]) == 1)
-			{
-				printf("error: numbers only\n");
-				free_map(split_str);
-				exit (1);
-			}
-			check_RGB(split_str[1]);
 		}
-		free_map(split_str);
+		check_c_f(split_str);
 		i++;
 	}
 }
@@ -124,10 +108,10 @@ void	check_doubles(char **map_copy)
 
 void	find_position(char **map_copy)
 {
-	int i;
-	int j;
-	int x;
-	int y;
+	int	i;
+	int	j;
+	int	x;
+	int	y;
 
 	x = -1;
 	y = -1;
