@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:18:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/29 18:26:08 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:31:01 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,68 +18,127 @@ void	check_paths(char **before_map)
 	int		i;
 
 	i = 0;
-	while (before_map[i] && i < 4)
-	{
-		split_str = ft_split(before_map[i], 32);
-		if (open(split_str[1], O_RDONLY) == -1)
-		{
-			printf("error: path not found\n");
-			free_map(split_str);
-			exit(1);
-		}
-		free_map(split_str);
-		i++;
-	}
 	while (before_map[i])
 	{
 		split_str = ft_split(before_map[i], 32);
-		if (check_nums(split_str[1]) == 1)
+		if (!ft_strcmp(split_str[0], "NO") || !ft_strcmp(split_str[0], "SO")
+			|| !ft_strcmp(split_str[0], "EA") || !ft_strcmp(split_str[0], "WE"))
 		{
-			printf("error: RGB out of range\n");
-			free_map(split_str);
-			exit(1);
+			if (open(split_str[1], O_RDONLY) == -1)
+			{
+				printf("error: path not found\n");
+				free_map(split_str);
+				exit(1);
+			}
+		}
+		else if (!ft_strcmp(split_str[0], "C") || !ft_strcmp(split_str[0], "F"))
+		{
+			if (check_nums(split_str[1]) == 1)
+			{
+				printf("error: RGB out of range\n");
+				free_map(split_str);
+				exit(1);
+			}
+			if (is_alpha(split_str[1]) == 1)
+			{
+				printf("error: numbers only\n");
+				free_map(split_str);
+				exit (1);
+			}
 		}
 		free_map(split_str);
 		i++;
 	}
 }
 
-void	check_instructions(char **map_copy)
+void	check_instructions(char **before_map)
 {
-	int	i;
-	int	f;
+	int		i;
+	int		c;
+	char	**split_str;
 
-	f = 0;
 	i = 0;
-	while (map_copy[i])
+	c = 0;
+	while (before_map[i])
 	{
-		if (ft_strstr(map_copy[i], "NO") || ft_strstr(map_copy[i], "SO")
-			|| ft_strstr(map_copy[i], "WE") || ft_strstr(map_copy[i], "EA")
-			|| ft_strchr(map_copy[i], 'C') || ft_strchr(map_copy[i], 'F'))
-			f++;
+		split_str = ft_split(before_map[i], 32);
+		if (!ft_strcmp(split_str[0], "NO") || !ft_strcmp(split_str[0], "SO")
+			|| !ft_strcmp(split_str[0], "EA") || !ft_strcmp(split_str[0], "WE")
+			|| !ft_strcmp(split_str[0], "F") || !ft_strcmp(split_str[0], "C"))
+			c++;
 		i++;
 	}
-	if (f != 6)
+	if (c != 6)
 	{
-		printf("error: instructions are missing\n");
+		printf("error: wrong map instructions\n");
+		free_map(split_str);
 		exit(1);
 	}
 }
 
 void	free_maps(t_map *map)
 {
-    if (map->map_copy)
-        free_map(map->map_copy);
-    if (map->skip_map)
-        free_map(map->skip_map);
-    if (map->before_map)
-        free_map(map->before_map);
-    if (map->after_map)
-        free_map(map->after_map);
-    if (map->rectangular_map)
-        free_map(map->rectangular_map);
-    if (map->dummy_map)
-        free_map(map->dummy_map);
-    if (map->trim_map)
-        free_map(map->trim_map);
+	if (map->map_copy)
+		free_map(map->map_copy);
+	if (map->skip_map)
+		free_map(map->skip_map);
+	if (map->before_map)
+		free_map(map->before_map);
+	if (map->after_map)
+		free_map(map->after_map);
+	if (map->rectangular_map)
+		free_map(map->rectangular_map);
+	if (map->dummy_map)
+		free_map(map->dummy_map);
+	if (map->trim_map)
+		free_map(map->trim_map);
+}
+
+void	check_doubles(char **map_copy)
+{
+	int	i;
+	int	c;
+
+	i = 0;
+	c = 0;
+	while (map_copy[i])
+	{
+		if (ft_strchr(map_copy[i], 'S') || ft_strchr(map_copy[i], 'E')
+			|| ft_strchr(map_copy[i], 'N') || ft_strchr(map_copy[i], 'W'))
+			c++;
+		if (c > 1)
+		{
+			printf("error: player has two positions\n");
+			exit(1);
+		}
+		i++;
+	}
+}
+
+void	find_position(char **map_copy)
+{
+	int i;
+	int j;
+	int x;
+	int y;
+
+	x = -1;
+	y = -1;
+	i = 0;
+	while (map_copy[i])
+	{
+		j = 0;
+		while (map_copy[i][j])
+		{
+			if (map_copy[i][j] == 'N' || map_copy[i][j] == 'E'
+				|| map_copy[i][j] == 'S' || map_copy[i][j] == 'W')
+			{
+				x = j;
+				y = i;
+			}
+			j++;
+		}
+		i++;
+	}
+	error(x, y);
 }

@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/29 18:15:22 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/30 12:33:22 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	parsing(int argc, char **argv, t_map *map)
 	if (argc == 2 && check_file_name(argv[1]) == 0)
 	{
 		map->map_copy = copy_the_map(argv[1]);
-		check_instructions(map->map_copy);
 		map->skip_map = skip_lines(map->map_copy, argv[1], map);
+		check_instructions(map->before_map);
+		// print_map(map->before_map);
 		check_paths(map->before_map);
 		check_map_validity(map->skip_map);
 		map->dummy_map = map_scan(map->skip_map, argv[1]);
 		map->rectangular_map = create_rectangular(map->dummy_map, map);
 		check_rectangular(map->rectangular_map);
-		// print_map(map->before_map);
 	}
 	else
 	{
@@ -47,7 +47,8 @@ char	**create_rectangular(char **map_copy, t_map *map)
 		map->j = 0;
 		while (map->j < map->current_len)
 		{
-			if (map_copy[map->i][map->j] == ' ')
+			if (map_copy[map->i][map->j] == ' '
+				|| map_copy[map->i][map->j] == '\t')
 				new_str[map->j] = 'V';
 			else
 				new_str[map->j] = map_copy[map->i][map->j];
@@ -90,9 +91,11 @@ char	**copy_the_map(char *argv)
 
 void	check_map_validity(char **map_copy)
 {
-	int		i;
+	int	i;
 
 	i = 0;
+	check_doubles(map_copy);
+	find_position(map_copy);
 	while (map_copy[i])
 	{
 		check_characters(map_copy[i]);
@@ -103,8 +106,10 @@ void	check_map_validity(char **map_copy)
 void	check_characters(char *map_copy)
 {
 	int	i;
+	int	c;
 
 	i = 0;
+	c = 0;
 	while (map_copy[i])
 	{
 		if (map_copy[i] == ' ')
