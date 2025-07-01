@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/26 21:09:04 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:29:43 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ typedef struct s_data
 {
 	void	*ptr;
 	void	*win;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
 	int		cam_length;
 	int		cam_height;
 	t_ray	*ray;
