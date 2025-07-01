@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/30 18:31:57 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/01 19:27:44 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	calculate_triangles(t_data *data)
 			data->algo->mapY += data->algo->stepY;
 			data->algo->side = 1;
 		}
-		if (data->map->map_copy[data->algo->mapY][data->algo->mapX])
+		if (data->map->map_copy[data->algo->mapY][data->algo->mapX] == '1')
 			data->algo->hit = 1;
 	}
 	if (data->algo->side == 0)
@@ -135,10 +135,12 @@ void	launch_ray(t_data *data)
 	data->ray->diry = data->pos->diry + data->pos->planey * data->ray->camera_x;
 }
 
-void	render_map(t_data *data)
+void	render_map(t_data *data, int x)
 {
 	int	y;
 	int	color;
+	int ciel_color = 0x87CEEB;
+	int sol_color = 0x444444;
 
 	color = assign_color(data, data->algo->mapX,
 		data->algo->mapY, data->algo->side);
@@ -146,11 +148,11 @@ void	render_map(t_data *data)
 	while (y < data->cam_height)
 	{
 		if (y < data->algo->drawStart)
-			my_mlx_pixel_put(data, data->pos->x, y, color);
+			my_mlx_pixel_put(data, x, y, ciel_color);
 		else if (y >= data->algo->drawStart && y <= data->algo->drawEnd)
-			my_mlx_pixel_put(data, data->pos->x, y, color);
+			my_mlx_pixel_put(data, x, y, color);
 		else
-			my_mlx_pixel_put(data, data->pos->x, y, color);
+			my_mlx_pixel_put(data, x, y, sol_color);
 		y++;
 	}
 }
@@ -201,6 +203,9 @@ void	algo_init(t_data **data)
 
 void	draw_fov(t_data *mlx)
 {
+	int	col;
+
+	col = 0;
 	mlx->pos = malloc(sizeof(t_pos));
 	mlx->pos->time = 0;
 	mlx->pos->old_time = 0;
@@ -213,13 +218,16 @@ void	draw_fov(t_data *mlx)
 	mlx->pos->y = 0;
 	mlx->ray = malloc(sizeof(t_ray));
 	mlx->algo = malloc(sizeof(t_dda));
-	algo_init(&mlx);
-	while (mlx->pos->x < mlx->cam_length)
+	while (col < mlx->cam_length)
 	{
-		launch_ray(mlx);
+		mlx->ray->camera_x = 2 * col / (double)mlx->cam_length;
+		mlx->ray->dirx = mlx->pos->dirx + mlx->pos->planex * mlx->ray->camera_x;
+		mlx->ray->diry = mlx->pos->diry + mlx->pos->planey * mlx->ray->camera_x;
+		algo_init(&mlx);
 		calculate_triangles(mlx);
-		render_map(mlx);
-		mlx->pos->x++;
+		render_map(mlx, col);
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+		col++;
 	}
 }
 
