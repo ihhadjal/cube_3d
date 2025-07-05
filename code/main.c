@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/01 19:27:44 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/05 01:52:09 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,85 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+// void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	dst = data->addr + (y + x * (data->bpp / 8));
+// 	*(unsigned int*)dst = color;
+// }
+
 int	on_keypress(int keycode, t_data *mlx)
 {
 	if (keycode == ESC)
 		mlx_loop_end(mlx->ptr);
+	if (keycode == 100)
+		rotate(mlx, keycode);
+	if (keycode == 97)
+		rotate(mlx, keycode);
+	if (keycode == 119)
+		move_up_and_down(mlx, keycode);
+	if (keycode == 115)
+		move_up_and_down(mlx, keycode);
 	return (0);
+}
+
+void	rotate(t_data *mlx, int keycode)
+{
+	double	olddirx;
+	double	oldplanex;
+
+	if (keycode == 100)
+	{
+		olddirx = mlx->pos->dirx;
+		mlx->pos->dirx = mlx->pos->dirx * cos(-rotspeed) - mlx->pos->diry * sin(-rotspeed);
+		mlx->pos->diry = olddirx * sin(-rotspeed) + mlx->pos->diry * cos(-rotspeed);
+		oldplanex = mlx->pos->planex;
+		mlx->pos->planex = mlx->pos->planex * cos(-rotspeed) - mlx->pos->planey * sin(-rotspeed);
+		mlx->pos->planey = oldplanex * sin(-rotspeed) + mlx->pos->planey * cos(-rotspeed);
+	}
+	else
+	{
+		olddirx = mlx->pos->dirx;
+		mlx->pos->dirx = mlx->pos->dirx * cos(rotspeed) - mlx->pos->diry * sin(rotspeed);
+		mlx->pos->diry = olddirx * sin(rotspeed) + mlx->pos->diry * cos(rotspeed);
+		oldplanex = mlx->pos->planex;
+		mlx->pos->planex = mlx->pos->planex * cos(rotspeed) - mlx->pos->planey * sin(rotspeed);
+		mlx->pos->planey = oldplanex * sin(rotspeed) + mlx->pos->planey * cos(rotspeed);
+	}
+	rend_map(mlx);
+	loop(mlx);
+	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+}
+
+void	move_up_and_down(t_data *mlx, int keycode)
+{
+	int	mapX_plus;
+	int	mapY_plus;
+	int	mapX_down;
+	int	mapY_down;
+
+	mapX_plus = (int)mlx->pos->posx + mlx->pos->dirx * movespeed;
+	mapY_plus = (int)mlx->pos->posy + mlx->pos->diry * movespeed;
+	mapX_down = (int)mlx->pos->posx - mlx->pos->dirx * movespeed;
+	mapY_down = (int)mlx->pos->posy - mlx->pos->diry * movespeed;
+	if (keycode == 119)
+	{
+		if (mlx->map->map_copy[mapX_plus][(int)mlx->pos->posy] != '1')
+			mlx->pos->posx += mlx->pos->dirx * movespeed;
+		if (mlx->map->map_copy[(int)mlx->pos->posx][mapY_plus] != '1')
+			mlx->pos->posx += mlx->pos->dirx * movespeed;
+	}
+	if (keycode == 115)
+	{
+		if (mlx->map->map_copy[mapX_down][(int)mlx->pos->posy] != '1')
+			mlx->pos->posx -= mlx->pos->dirx * movespeed;
+		if (mlx->map->map_copy[(int)mlx->pos->posx][mapY_down] != '1')
+			mlx->pos->posy -= mlx->pos->diry * movespeed;
+	}
+	rend_map(mlx);
+	loop(mlx);
+	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
 }
 
 void	init_colors(t_data *data)
@@ -162,7 +236,7 @@ void	get_coordinates(t_data *mlx, double *x, double *y)
 	int	i;
 	int	j;
 
-	i = 7;
+	i = 0;
 	j = 0;
 	while (mlx->map->map_copy[i])
 	{
@@ -201,23 +275,73 @@ void	algo_init(t_data **data)
 	(*data)->algo->stepY = 0;
 }
 
-void	draw_fov(t_data *mlx)
+void	drawinggg(t_data *mlx, int col, int j, int color, int code)
+{
+	int	i = 0;
+	int o = 0;
+	while (i < code)
+	{
+		o = 0;
+		while(o < code)
+		{
+			my_mlx_pixel_put(mlx, col * 64 + o, j * 64 + i, color);
+			o++;
+		}
+		i++;
+	}
+}
+
+void rend_map(t_data *mlx)
+{
+	int i = 0;
+	int j = 0;
+	int color;
+	int ciel_color = 0x87CEEB;
+	int sol_color = 0x444444;
+
+	color = assemble_rgb(mlx->rgb);
+
+	while (mlx->map->map_copy[i])
+	{
+		j = 0;
+		while (mlx->map->map_copy[i][j])
+		{
+			if (mlx->map->map_copy[i][j] == '1')
+				drawinggg(mlx, j, i, color, 64);
+			else if (mlx->map->map_copy[i][j] == '0')
+				drawinggg(mlx, j, i, sol_color, 64);
+			else if (mlx->map->map_copy[i][j] == 'N')
+				drawinggg(mlx, j, i, ciel_color, 64);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	ray_trace(t_data *data)
+{
+	double	ray_x = data->pos->posx;
+	double	ray_y = data->pos->posy;
+	double	reference = 0.01;
+	int		hit = 0;
+
+	while (!hit)
+	{
+		int	mapX = (int)ray_x;
+		int	mapY = (int)ray_y;
+		if (data->map->map_copy[mapY][mapX] == '1')
+			hit = 1;
+		my_mlx_pixel_put(data, ray_x * 64, ray_y * 64, 0x00FF00);
+		ray_x += data->ray->dirx * reference;
+		ray_y += data->ray->diry * reference;
+	}
+}
+
+void	loop(t_data *mlx)
 {
 	int	col;
 
 	col = 0;
-	mlx->pos = malloc(sizeof(t_pos));
-	mlx->pos->time = 0;
-	mlx->pos->old_time = 0;
-	get_coordinates(mlx, &mlx->pos->posx, &mlx->pos->posy);
-	mlx->pos->dirx = -1;
-	mlx->pos->diry = 0;
-	mlx->pos->planex = 0;
-	mlx->pos->planey = 0.66;
-	mlx->pos->x = 0;
-	mlx->pos->y = 0;
-	mlx->ray = malloc(sizeof(t_ray));
-	mlx->algo = malloc(sizeof(t_dda));
 	while (col < mlx->cam_length)
 	{
 		mlx->ray->camera_x = 2 * col / (double)mlx->cam_length;
@@ -225,10 +349,28 @@ void	draw_fov(t_data *mlx)
 		mlx->ray->diry = mlx->pos->diry + mlx->pos->planey * mlx->ray->camera_x;
 		algo_init(&mlx);
 		calculate_triangles(mlx);
-		render_map(mlx, col);
-		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+		ray_trace(mlx);
 		col++;
 	}
+}
+
+void	draw_fov(t_data *mlx)
+{
+	mlx->pos = malloc(sizeof(t_pos));
+	mlx->pos->time = 0;
+	mlx->pos->old_time = 0;
+	get_coordinates(mlx, &mlx->pos->posx, &mlx->pos->posy);
+	mlx->pos->dirx = -1;
+	mlx->pos->diry = 0;
+	mlx->pos->planex = 0;
+	mlx->pos->planey = 0.55;
+	mlx->pos->x = 0;
+	mlx->pos->y = 0;
+	mlx->ray = malloc(sizeof(t_ray));
+	mlx->algo = malloc(sizeof(t_dda));
+	rend_map(mlx);
+	loop(mlx);
+	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
 }
 
 
@@ -241,14 +383,14 @@ int	main(int argc, char **argv)
 	{
 		mlx = malloc(sizeof(t_data));
 		mlx->map = &map;
-		mlx->cam_height = 1200;
-		mlx->cam_length = 1200;
+		mlx->cam_height = 9;
+		mlx->cam_length = ft_strlen(mlx->map->map_copy[0]);
 		mlx->ptr = mlx_init();
-		mlx->img = mlx_new_image(mlx->ptr, mlx->cam_length, mlx->cam_height);
+		mlx->img = mlx_new_image(mlx->ptr, mlx->cam_length * 64, mlx->cam_height * 64);
 		mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->line_length, &mlx->endian);
 		init_colors(mlx);
-		mlx->win = mlx_new_window(mlx->ptr, mlx->cam_height,
-			mlx->cam_length, "Bomboclaat");
+		mlx->win = mlx_new_window(mlx->ptr, mlx->cam_length * 64,
+			mlx->cam_height * 64, "Bomboclaat");
 		draw_fov(mlx);
 		if (!mlx->win)
 		{
