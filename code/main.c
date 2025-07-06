@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/05 18:43:59 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/06 16:56:24 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,14 +139,16 @@ void	calculate_triangles(t_data *data)
 {
 	data->algo->mapX = (int)data->pos->posx;
 	data->algo->mapY = (int)data->pos->posy;
-	if (data->ray->dirx != 0)
+		if (data->ray->dirx != 0)
 	{
-		data->algo->deltaDistX = sqrt(1 + (data->ray->diry * data->ray->diry) / (data->ray->dirx * data->ray->dirx)); 
+		data->algo->deltaDistX = fabs(1 / data->ray->dirx);
 	}
+	else
+		data->algo->deltaDistX = 1e30;
 	if (data->ray->diry != 0)
-	{
-		data->algo->deltaDistY = sqrt(1 + (data->ray->dirx * data->ray->dirx) / (data->ray->diry * data->ray->diry)); 
-	}
+		data->algo->deltaDistY = fabs(1 / data->ray->diry);
+	else
+		data->algo->deltaDistY = 1e30;
 	if (data->ray->dirx < 0)
 	{
 		data->algo->stepX = -1;
@@ -367,8 +369,8 @@ void	draw_fov(t_data *mlx)
 	mlx->pos->time = 0;
 	mlx->pos->old_time = 0;
 	get_coordinates(mlx, &mlx->pos->posx, &mlx->pos->posy);
-	mlx->pos->dirx = -1;
-	mlx->pos->diry = 0;
+	mlx->pos->dirx = 1;
+	mlx->pos->diry = -1;
 	mlx->pos->planex = 0;
 	mlx->pos->planey = 0.66;
 	mlx->pos->x = 0;
