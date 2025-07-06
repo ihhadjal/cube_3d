@@ -6,7 +6,7 @@
 /*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/05 01:50:15 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:03:22 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
+# include <stdbool.h>
 
 # define ESC 65307
+# define D 100
+# define A 97
+# define W 119
+# define S 115
+
 typedef struct s_ray
 {
 	double	camera_x;
@@ -79,6 +85,10 @@ typedef struct s_dda
 
 typedef struct s_data
 {
+	bool	key_up;
+	bool	key_down;
+	bool	key_left;
+	bool	key_right;
 	void	*ptr;
 	void	*win;
 	void	*img;
@@ -95,7 +105,7 @@ typedef struct s_data
 	t_dda	*algo;
 }			t_data;
 
-#define rotspeed	0.05
+#define rotspeed	0.02
 #define movespeed	0.02
 
 int			parsing(int argc, char **argv, t_map *map);
@@ -106,9 +116,9 @@ int	count_lines(char *argv);
 void	check_caracters(char **map_copy);
 void	print_map(char **map);
 void	drawinggg(t_data *mlx, int col, int j, int color, int code);
-void	move_up_and_down(t_data *mlx, int keycode);
+int		move_player(t_data **mlx);
 void	ray_trace(t_data *data);
-void	rotate(t_data *mlx, int keycode);
+void	rotate(t_data **mlx, int keycode);
 void	rend_map(t_data *mlx);
 void	draw_fov(t_data *mlx);
 void	loop(t_data *mlx);
