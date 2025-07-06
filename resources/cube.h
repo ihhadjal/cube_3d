@@ -6,7 +6,7 @@
 /*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/06 17:03:27 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/06 21:51:50 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,13 @@ typedef struct s_dda
 	int		drawEnd;
 }	t_dda;
 
+typedef struct text
+{
+	char	*path;
+	int		tw;
+	int		th;
+}		text;
+
 typedef struct s_data
 {
 	bool	key_up;
@@ -109,6 +116,7 @@ typedef struct s_data
 	int		endian;
 	int		cam_length;
 	int		cam_height;
+	text	*texture;
 	t_ray	*ray;
 	t_pos	*pos;
 	t_map	*map;
@@ -116,8 +124,8 @@ typedef struct s_data
 	t_dda	*algo;
 }			t_data;
 
-#define rotspeed	0.02
-#define movespeed	0.02
+#define rotspeed	0.015
+#define movespeed	0.015
 
 int			parsing(int argc, char **argv, t_map *map);
 int			check_file_name(char *argv);

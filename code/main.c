@@ -6,7 +6,7 @@
 /*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/06 17:04:58 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/06 21:55:19 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	rotate(t_data **mlx, int keycode)
 	double	olddirx;
 	double	oldplanex;
 
-	if (keycode == D)
+	if (keycode == A)
 	{
 		olddirx = (*mlx)->pos->dirx;
 		(*mlx)->pos->dirx = (*mlx)->pos->dirx * cos(-rotspeed) - (*mlx)->pos->diry * sin(-rotspeed);
@@ -187,9 +187,17 @@ void	calculate_triangles(t_data *data)
 			data->algo->hit = 1;
 	}
 	if (data->algo->side == 0)
+	{
 		data->algo->perpWallDist = (data->algo->sideDistX - data->algo->deltaDistX);
+		if (data->algo->sideDistX == data->algo->deltaDistX)
+			data->algo->perpWallDist = 1;
+	}
 	else
+	{
 		data->algo->perpWallDist = (data->algo->sideDistY - data->algo->deltaDistY);
+		if (data->algo->sideDistY == data->algo->deltaDistY)
+			data->algo->perpWallDist = 1;
+	}
 	data->algo->lineHeight = (int)(data->cam_height / data->algo->perpWallDist);
 	data->algo->drawStart = data->cam_height / 2 - data->algo->lineHeight / 2;
 	data->algo->drawEnd = data->algo->lineHeight / 2 + data->cam_height / 2;
@@ -222,8 +230,8 @@ void	render_map(t_data *data, int x)
 {
 	int	y;
 	int	color;
-	int ciel_color = 0x87CEEB;
-	int sol_color = 0x444444;
+	int ciel_color = 0x0024ff;
+	int sol_color = 0xFF00b6;
 
 	color = assign_color(data, data->algo->mapX,
 		data->algo->mapY, data->algo->side);
@@ -306,7 +314,7 @@ void rend_map(t_data *mlx)
 	int j = 0;
 	int color;
 	int ciel_color = 0x87CEEB;
-	int sol_color = 0x444444;
+	int sol_color = 0xFF00b6;
 
 	color = assemble_rgb(mlx->rgb);
 	while (mlx->map->map_copy[i])
@@ -363,16 +371,62 @@ void	loop(t_data *mlx)
 	}
 }
 
+void	assign_angle(t_data *mlx, int i, int j)
+{
+	if (mlx->map->map_copy[i][j] == 'N')
+	{
+		mlx->pos->dirx = 0;
+		mlx->pos->diry = -1;
+		mlx->pos->planex = 0.66;
+	}
+	else if (mlx->map->map_copy[i][j] == 'S')
+	{
+		mlx->pos->dirx = 0;
+		mlx->pos->diry = 1;
+		mlx->pos->planex = 0.66;
+	}
+	else if (mlx->map->map_copy[i][j] == 'W')
+	{
+		mlx->pos->dirx = -1;
+		mlx->pos->diry = 0;
+		mlx->pos->planey = 0.66;
+	}
+	else if (mlx->map->map_copy[i][j] == 'E')
+	{
+		mlx->pos->dirx = 1;
+		mlx->pos->diry = 0;
+		mlx->pos->planey = 0.66;
+	}
+}
+
+void	determine_angle(t_data *mlx)
+{
+	int	i;
+	int	j;
+
+	i = 8;
+	j = 0;
+	while (mlx->map->map_copy[i])
+	{
+		j = 0;
+		while (mlx->map->map_copy[i][j])
+		{
+			assign_angle(mlx, i, j);
+			j++;
+		}
+		i++;
+	}
+}
+
 void	draw_fov(t_data *mlx)
 {
 	mlx->pos = malloc(sizeof(t_pos));
 	mlx->pos->time = 0;
 	mlx->pos->old_time = 0;
 	get_coordinates(mlx, &mlx->pos->posx, &mlx->pos->posy);
-	mlx->pos->dirx = 1;
-	mlx->pos->diry = -1;
 	mlx->pos->planex = 0;
-	mlx->pos->planey = 0.66;
+	mlx->pos->planey = 0;
+	determine_angle(mlx);
 	mlx->pos->x = 0;
 	mlx->pos->y = 0;
 	mlx->key_up = false;
@@ -402,6 +456,24 @@ int	move_player(t_data **mlx)
 	return (0);
 }
 
+void	init_text(t_data *mlx)
+{
+	int		i;
+
+	i = 0;
+	mlx->texture = malloc(sizeof(text) * 5);
+	while (mlx->map->before_map[i] && i < 4)
+	{
+		printf("before map = %s\n", ft_strchr(mlx->map->before_map[i], '.'));
+		mlx->texture[i].path = ft_strchr(mlx->map->before_map[i], '.');
+		printf(" path = %s\n", mlx->texture[i].path);
+		mlx->texture[i].th = 0;
+		mlx->texture[i].tw = 0;
+		i++;
+	}
+	mlx->texture[4].path = NULL;
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*mlx;
@@ -416,6 +488,7 @@ int	main(int argc, char **argv)
 		mlx->ptr = mlx_init();
 		mlx->img = mlx_new_image(mlx->ptr, mlx->cam_length, mlx->cam_height);
 		mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->line_length, &mlx->endian);
+		init_text(mlx);
 		init_colors(mlx);
 		mlx->win = mlx_new_window(mlx->ptr, mlx->cam_length ,
 			mlx->cam_height, "Bomboclaat");

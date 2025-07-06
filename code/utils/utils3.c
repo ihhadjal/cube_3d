@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:18:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 16:33:28 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/06 18:46:49 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	check_instructions(char **before_map)
 	if (c != 6)
 	{
 		printf("error: wrong map instructions\n");
-		free_map(split_str);
 		exit(1);
 	}
 }
