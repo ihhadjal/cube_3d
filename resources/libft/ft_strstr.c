@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 16:24:05 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/29 17:12:56 by ihhadjal         ###   ########.fr       */
+/*   Created: 2025/06/28 14:33:28 by ihhadjal          #+#    #+#             */
+/*   Updated: 2025/06/30 16:39:15 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include <stdio.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
+char	*ft_strstr(char *str, char *to_find)
+{
+	int	i;
+	int	j;
 
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-char	*get_next_line(int fd);
-char	*ft_sstrchr(const char *s, int c);
-char	*ft_sstrdup(const char *s);
-size_t	ft_sstrlen(const char *s);
-char	*ft_sstrjoin(char *s1, char *s2);
-
-#endif
+	i = 0;
+	j = 0;
+	if (to_find[0] == '\0')
+		return (str);
+	while (str[i])
+	{
+		while (str[i + j] == to_find[j] && to_find[j] != '\0')
+		{
+			j++;
+		}
+		if (to_find[j] == '\0')
+		{
+			return (&str[i]);
+		}
+		i++;
+		j = 0;
+	}
+	return (0);
+}

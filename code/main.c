@@ -6,13 +6,13 @@
 /*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/06 16:56:24 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/06 17:04:58 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../resources/cube.h"
 
-int	free_all(t_data *mlx)
+int	free_all1(t_data *mlx)
 {
 	if (mlx->win)
 		mlx_destroy_window(mlx->ptr, mlx->win);
@@ -428,9 +428,10 @@ int	main(int argc, char **argv)
 		mlx_hook(mlx->win, 2, 1L<<0, on_keypress, mlx);
 		mlx_hook(mlx->win, 3, 1L<<1, on_release, mlx);
 		mlx_loop_hook(mlx->ptr, move_player, &mlx);
-		mlx_hook(mlx->win, 17, 0, free_all, mlx);
+		mlx_hook(mlx->win, 17, 0, free_all1, mlx);
 		mlx_loop(mlx->ptr);
-		free_all(mlx);
+		free_all1(mlx);
+		free_maps(&map);
 	}
 	return (0);
 }

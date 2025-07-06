@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/05 18:03:22 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/06 17:03:27 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,21 @@ typedef struct s_pos
 typedef struct s_map
 {
 	char	**map_copy;
-	int		nord;
-	int		south;
-	int		east;
-	int		west;
+	char	**skip_map;
+	char	**before_map;
+	char	**after_map;
+	char	**rectangular_map;
+	char	**dummy_map;
+	char	**trim_map;
+	char	*trim_str;
+	int		biggest_len;
+	int		i;
+	int		j;
+	int		current_len;
+	int		start_x;
+	int		start_y;
+	int		height;
+	int		length;
 }			t_map;
 
 typedef struct s_color
@@ -124,4 +135,31 @@ void	draw_fov(t_data *mlx);
 void	loop(t_data *mlx);
 
 
+char		**copy_the_map(char *argv);
+void		check_fd(int fd);
+int			count_lines(char *argv);
+void		check_map_validity(char **map_copy);
+void		print_map(char **map);
+char		**skip_lines(char **map_copy, char *argv, t_map *map);
+int			is_space(char *str);
+void		after_copy_logic(t_map *map, int i, char *argv, char **map_copy);
+void		check_characters(char *map_copy);
+int			find_biggest_len(char **map);
+char		**map_scan(char **map, char *argv);
+char		**create_rectangular(char **map_copy, t_map *map);
+void		free_map(char **map);
+void		ft_error(char *str, char **map);
+void		check_rectangular(char **rec_map);
+void		check_instructions(char **map_copy);
+void		check_paths(char **before_map);
+int			check_nums(char *str);
+void		big_condition(char **rec_map, int i, int j);
+void		free_maps(t_map *map);
+void		check_doubles(char **map_copy);
+void		error(int x, int y);
+void		find_position(char **map_copy);
+int			is_alpha(char *str);
+int			check_xpm(char *str);
+void		check_rgb(char *str);
+void		check_c_f(char **split_str);
 #endif

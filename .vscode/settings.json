@@ -1,7 +1,13 @@
 {
+<<<<<<< HEAD
     "files.associations": {
         "math.h": "c",
         "initializer_list": "c",
         "cube.h": "c"
     }
+=======
+	"files.associations": {
+		"cube.h": "c"
+	}
+>>>>>>> ihhadjal
 }

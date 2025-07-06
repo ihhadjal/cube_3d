@@ -3,42 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:00:32 by ilhasnao          #+#    #+#             */
-/*   Updated: 2024/11/14 11:54:29 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:34:22 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*tab;
-	size_t	s_len;
-	size_t	j;
-
-	s_len = 0;
-	j = 0;
-	if (!s)
-		return (NULL);
-	while (s[s_len] != '\0')
-		s_len++;
-	while (start <= s_len && s[start + j] != '\0' && j < len)
-		j++;
-	tab = (char *)malloc((j + 1) * sizeof(char));
-	if (!tab)
-		return (NULL);
-	j = 0;
-	while (start <= s_len && s[start + j] != '\0' && j < len)
-	{
-		tab[j] = s[start + j];
-		j++;
-	}
-	tab[j] = '\0';
-	return (tab);
-}
 
 size_t	to_find(char const *s, char c)
 {

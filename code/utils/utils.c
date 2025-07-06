@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:21:19 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/18 15:46:50 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/06/29 17:19:14 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	check_file_name(char *argv)
 
 int	count_lines(char *argv)
 {
-	char *lines;
-	int	fd;
-	int	i;
+	char	*lines;
+	int		fd;
+	int		i;
 
 	i = 0;
 	fd = open(argv, O_RDONLY);
@@ -44,10 +44,10 @@ int	count_lines(char *argv)
 	while (lines)
 	{
 		i++;
-		free (lines);
+		free(lines);
 		lines = get_next_line(fd);
 	}
-	close (fd);
+	close(fd);
 	return (i);
 }
 
@@ -61,4 +61,18 @@ void	print_map(char **map)
 		printf("%s\n", map[i]);
 		i++;
 	}
+}
+
+int	is_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 10 && str[i] <= 13)
+			return (1);
+		i++;
+	}
+	return (0);
 }
