@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/06 21:51:50 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:01:10 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,36 +92,55 @@ typedef struct s_dda
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
+	double	wallx;
+	double	step;
 }	t_dda;
 
+typedef enum texnum
+{
+	NO,
+	SO,
+	WE,
+	EA,
+}	texnum;
 typedef struct text
 {
 	char	*path;
 	int		tw;
 	int		th;
+	int		texx;
+	int		texy;
+	double	texpos;
+	int		*tex;
+	char	*tex_addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
 }		text;
 
 typedef struct s_data
 {
-	bool	key_up;
-	bool	key_down;
-	bool	key_left;
-	bool	key_right;
-	void	*ptr;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-	int		cam_length;
-	int		cam_height;
-	text	*texture;
-	t_ray	*ray;
-	t_pos	*pos;
-	t_map	*map;
-	t_color	*rgb;
-	t_dda	*algo;
+	texnum		num;
+	bool		key_up;
+	bool		key_down;
+	bool		key_left;
+	bool		key_right;
+	void		*ptr;
+	void		*win;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			line_length;
+	int			endian;
+	int			cam_length;
+	int			cam_height;
+	// u_int32_t	**buffer;
+	text		*texture;
+	t_ray		*ray;
+	t_pos		*pos;
+	t_map		*map;
+	t_color		*rgb;
+	t_dda		*algo;
 }			t_data;
 
 #define rotspeed	0.015

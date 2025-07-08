@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/06 17:34:50 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/07 09:32:46 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,8 @@ void	check_map_validity(char **map_copy)
 void	check_characters(char *map_copy)
 {
 	int	i;
-	int	c;
 
 	i = 0;
-	c = 0;
 	while (map_copy[i])
 	{
 		if (map_copy[i] == ' ')

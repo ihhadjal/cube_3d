@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/06 21:55:19 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:57:32 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;
+}
+
+int get_texture_pixel(text *tex, int x, int y)
+{
+	char *pixel = tex->tex_addr + (y * tex->line_length + x * (tex->bpp / 8));
+	return *(unsigned int*)pixel;
 }
 
 // void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -135,11 +141,29 @@ int assemble_rgb(t_color *c)
 	return (c->r << 16 | c->g << 8 | c->b);
 }
 
+int	determine_texnum(t_data *data)
+{
+	if (data->algo->side == 0)
+	{
+		if (data->ray->dirx < 0)
+			return (NO);
+		else
+			return (SO);
+	}
+	else
+	{
+		if (data->ray->diry < 0)
+			return (EA);
+		else
+			return (WE);
+	}
+}
+
 void	calculate_triangles(t_data *data)
 {
 	data->algo->mapX = (int)data->pos->posx;
 	data->algo->mapY = (int)data->pos->posy;
-		if (data->ray->dirx != 0)
+	if (data->ray->dirx != 0)
 	{
 		data->algo->deltaDistX = fabs(1 / data->ray->dirx);
 	}
@@ -189,14 +213,14 @@ void	calculate_triangles(t_data *data)
 	if (data->algo->side == 0)
 	{
 		data->algo->perpWallDist = (data->algo->sideDistX - data->algo->deltaDistX);
-		if (data->algo->sideDistX == data->algo->deltaDistX)
-			data->algo->perpWallDist = 1;
+		// if (data->algo->sideDistX == data->algo->deltaDistX)
+		// 	data->algo->perpWallDist = 1;
 	}
 	else
 	{
 		data->algo->perpWallDist = (data->algo->sideDistY - data->algo->deltaDistY);
-		if (data->algo->sideDistY == data->algo->deltaDistY)
-			data->algo->perpWallDist = 1;
+		// if (data->algo->sideDistY == data->algo->deltaDistY)
+		// 	data->algo->perpWallDist = 1;
 	}
 	data->algo->lineHeight = (int)(data->cam_height / data->algo->perpWallDist);
 	data->algo->drawStart = data->cam_height / 2 - data->algo->lineHeight / 2;
@@ -205,6 +229,25 @@ void	calculate_triangles(t_data *data)
 		data->algo->drawStart = 0;
 	if (data->algo->drawEnd >= data->cam_height)
 		data->algo->drawEnd = data->cam_height - 1;
+	data->num = determine_texnum(data);
+	// printf("%d\n", data->num);
+	// sleep(1);
+	if (data->algo->side == 0)
+		data->algo->wallx = data->pos->posy + data->algo->perpWallDist * data->ray->diry;
+	else
+		data->algo->wallx = data->pos->posx + data->algo->perpWallDist * data->ray->dirx;
+	data->algo->wallx -= floor((data->algo->wallx));
+	if (data->algo->wallx < 0.0)
+		data->algo->wallx = 0.0;
+	if (data->algo->wallx > 1.0)
+		data->algo->wallx = 1.0;
+	data->texture[data->num].texx = (int)(data->algo->wallx * (double)data->texture[data->num].tw);
+	if (data->algo->side == 0 && data->ray->dirx > 0)
+		data->texture[data->num].texx = data->texture[data->num].tw - data->texture[data->num].texx - 1;
+	if (data->algo->side == 1 && data->ray->diry < 0)
+		data->texture[data->num].texx = data->texture[data->num].tw - data->texture[data->num].texx - 1;
+	data->algo->step = 1.0 * data->texture[data->num].th / data->algo->lineHeight;
+	data->texture[data->num].texpos = (data->algo->drawStart - data->cam_height / 2 + data->algo->lineHeight / 2) * data->algo->step;
 }
 
 int	assign_color(t_data *data, int mapx, int mapy, int side)
@@ -230,18 +273,36 @@ void	render_map(t_data *data, int x)
 {
 	int	y;
 	int	color;
-	int ciel_color = 0x0024ff;
-	int sol_color = 0xFF00b6;
-
-	color = assign_color(data, data->algo->mapX,
-		data->algo->mapY, data->algo->side);
+	int	ciel_color = 0x0024ff;
+	int	sol_color = 0xFF00b6;
+	int	d;
+	// color = assign_color(data, data->algo->mapX,
+	// 	data->algo->mapY, data->algo->side);
 	y = 0;
 	while (y < data->cam_height)
 	{
 		if (y < data->algo->drawStart)
 			my_mlx_pixel_put(data, x, y, ciel_color);
 		else if (y >= data->algo->drawStart && y <= data->algo->drawEnd)
+		{
+			d = y * 256 - data->cam_height * 128 + data->algo->lineHeight * 128;
+			data->texture[data->num].texy = ((d * data->texture[data->num].th) / data->algo->lineHeight) / 256;
+			data->texture[data->num].texpos += data->algo->step;
+			if (data->num < 0 || data->num >= 4)
+				return;
+			if (data->texture[data->num].texx < 0 || data->texture[data->num].texx >= data->texture[data->num].tw)
+				return;
+			if (data->texture[data->num].texy < 0 || data->texture[data->num].texy >= data->texture[data->num].th)
+				return;
+			color = *(unsigned int *)(data->texture[data->num].tex_addr 
+		+ (data->texture[data->num].texy
+				* data->texture[data->num].line_length 
+					+ data->texture[data->num].texx 
+					* (data->texture[data->num].bpp / 8)));
+			if (data->algo->side == 1)
+				color = (color >> 1) & 8355711;
 			my_mlx_pixel_put(data, x, y, color);
+		}
 		else
 			my_mlx_pixel_put(data, x, y, sol_color);
 		y++;
@@ -290,6 +351,8 @@ void	algo_init(t_data **data)
 	(*data)->algo->sideDistY = 0;
 	(*data)->algo->stepX = 0;
 	(*data)->algo->stepY = 0;
+	(*data)->algo->wallx = 0;
+	(*data)->algo->step = 0;
 }
 
 void	drawinggg(t_data *mlx, int col, int j, int color, int code)
@@ -464,14 +527,52 @@ void	init_text(t_data *mlx)
 	mlx->texture = malloc(sizeof(text) * 5);
 	while (mlx->map->before_map[i] && i < 4)
 	{
-		printf("before map = %s\n", ft_strchr(mlx->map->before_map[i], '.'));
 		mlx->texture[i].path = ft_strchr(mlx->map->before_map[i], '.');
-		printf(" path = %s\n", mlx->texture[i].path);
 		mlx->texture[i].th = 0;
 		mlx->texture[i].tw = 0;
+		mlx->texture[i].texx = 0;
+		mlx->texture[i].texy = 0;
+		mlx->texture[i].texpos = 0;
 		i++;
 	}
 	mlx->texture[4].path = NULL;
+}
+
+void	my_mlx_init(t_data *mlx)
+{
+	int	i;
+	// int	j;
+
+	// j = 0;
+	i = 0;
+	mlx->ptr = mlx_init();
+	mlx->num = 0;
+	init_text(mlx);
+	// mlx->buffer = malloc(mlx->cam_height + 1 * sizeof(u_int32_t*));
+	// while (j < mlx->cam_height)
+	// {
+	// 	mlx->buffer[j] = malloc(mlx->cam_length * sizeof(u_int32_t));
+	// }
+	while (mlx->texture[i].path)
+	{
+		mlx->texture[i].tex = mlx_xpm_file_to_image(mlx->ptr, mlx->texture[i].path, 
+			&mlx->texture[i].tw, &mlx->texture[i].th);
+		if (!mlx->texture[i].tex)
+		{
+			printf("Erreur : texture mur introuvable\n");
+			exit(1);
+		}
+		mlx->texture[i].tex_addr = mlx_get_data_addr(mlx->texture[i].tex, &mlx->texture[i].bpp,
+			&mlx->texture[i].line_length, &mlx->texture[i].endian);
+		if (!mlx->texture[i].tex_addr)
+		{
+			printf("Erreur : récupération adresse texture mur nord impossible\n");
+			exit(1);
+		}
+		i++;
+	}
+	mlx->cam_height = 900;
+	mlx->cam_length = 900;
 }
 
 int	main(int argc, char **argv)
@@ -483,12 +584,9 @@ int	main(int argc, char **argv)
 	{
 		mlx = malloc(sizeof(t_data));
 		mlx->map = &map;
-		mlx->cam_height = 900;
-		mlx->cam_length = 900;
-		mlx->ptr = mlx_init();
+		my_mlx_init(mlx);
 		mlx->img = mlx_new_image(mlx->ptr, mlx->cam_length, mlx->cam_height);
 		mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->line_length, &mlx->endian);
-		init_text(mlx);
 		init_colors(mlx);
 		mlx->win = mlx_new_window(mlx->ptr, mlx->cam_length ,
 			mlx->cam_height, "Bomboclaat");

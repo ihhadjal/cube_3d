@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:33:52 by ilhasnao          #+#    #+#              #
-#    Updated: 2025/06/30 12:32:04 by ihhadjal         ###   ########.fr        #
+#    Updated: 2025/07/07 18:12:09 by hasnawww         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
