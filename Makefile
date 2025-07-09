@@ -6,7 +6,7 @@
 #    By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:33:52 by ilhasnao          #+#    #+#              #
-#    Updated: 2025/06/30 12:32:04 by ihhadjal         ###   ########.fr        #
+#    Updated: 2025/07/09 17:17:50 by ihhadjal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ RM = rm -f
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 SRC_1 = code/main.c code/parsing/parsing.c code/utils/utils.c code/parsing/skiplines_logic.c \
-code/utils/utils2.c code/parsing/flood_fill.c code/utils/utils3.c code/utils/utils4.c
+code/utils/utils2.c code/parsing/flood_fill.c code/utils/utils3.c code/utils/utils4.c code/utils/utils5.c
 
 OBJ_1 = $(SRC_1:.c=.o)
 

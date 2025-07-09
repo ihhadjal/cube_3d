@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/06 18:45:30 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:50:35 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,8 @@ void	check_map_validity(char **map_copy)
 void	check_characters(char *map_copy)
 {
 	int	i;
-	int	c;
 
 	i = 0;
-	c = 0;
 	while (map_copy[i])
 	{
 		if (map_copy[i] == ' ')

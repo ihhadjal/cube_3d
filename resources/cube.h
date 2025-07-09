@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/30 16:35:02 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/09 19:14:32 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ typedef struct s_map
 	int		start_y;
 	int		height;
 	int		length;
+	int		no;
+	int		so;
+	int		ea;
+	int		we;
 }			t_map;
 
 int			parsing(int argc, char **argv, t_map *map);
@@ -77,4 +81,6 @@ int			is_alpha(char *str);
 int			check_xpm(char *str);
 void		check_rgb(char *str);
 void		check_c_f(char **split_str);
+void		doubles_check(char **str);
+void	check(char **str, t_map *map);
 #endif

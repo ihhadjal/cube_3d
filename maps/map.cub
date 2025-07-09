@@ -1,6 +1,6 @@
 NO ./test_immages/test1.xpm
-SO ./test_immages/test2.xpm
-WE ./test_immages/test3.xpm
+NO ./test_immages/test2.xpm
+SO ./test_immages/test3.xpm
 EA ./test_immages/test4.xpm
 
 C 225,30,0

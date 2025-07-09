@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:18:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/06 18:45:54 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/09 19:32:57 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	check_instructions(char **before_map)
 
 	i = 0;
 	c = 0;
+	doubles_check(before_map);
 	while (before_map[i])
 	{
 		split_str = ft_split(before_map[i], 32);
