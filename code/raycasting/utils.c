@@ -6,7 +6,7 @@
 /*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 02:31:17 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/09 03:36:41 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:38:23 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,26 @@ void	get_coordinates(t_data *mlx, double *x, double *y)
 			}
 			j++;
 		}
+		i++;
+	}
+}
+
+void	assign_texture(t_data *mlx)
+{
+	int	i;
+
+	i = 0;
+	while (mlx->texture[i].path)
+	{
+		mlx->texture[i].tex = mlx_xpm_file_to_image(mlx->ptr,
+				mlx->texture[i].path, &mlx->texture[i].tw, &mlx->texture[i].th);
+		if (!mlx->texture[i].tex)
+			mlx_loop_end(mlx->ptr);
+		mlx->texture[i].tex_addr = mlx_get_data_addr(mlx->texture[i].tex,
+				&mlx->texture[i].bpp, &mlx->texture[i].line_length,
+				&mlx->texture[i].endian);
+		if (!mlx->texture[i].tex_addr)
+			mlx_loop_end(mlx->ptr);
 		i++;
 	}
 }

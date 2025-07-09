@@ -6,7 +6,7 @@
 /*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/09 03:56:48 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/09 19:18:35 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define A 97
 # define W 119
 # define S 115
+# define LEFT 65361
+# define RIGHT 65363
 # define RS	0.015
 # define MOVESPEED	0.015
 
@@ -127,6 +129,8 @@ typedef struct s_data
 	bool		key_down;
 	bool		key_left;
 	bool		key_right;
+	bool		right;
+	bool		left;
 	void		*ptr;
 	void		*win;
 	void		*img;
@@ -161,7 +165,7 @@ void	ray_trace(t_data *data);
 void	rend_map(t_data *mlx);
 void	draw_fov(t_data *mlx);
 void	loop(t_data *mlx);
-void	init_text(t_data *mlx);
+void	init_texture(t_text *texture, t_data *mlx, char *str);
 void	my_mlx_init(t_data *mlx);
 void	algo_init(t_data **data);
 int		on_keypress(int keycode, t_data *mlx);
@@ -189,6 +193,7 @@ void	determine_angle(t_data *mlx);
 void	assign_angle(t_data *mlx, int i, int j);
 t_color	*find_color(t_data *mlx, char c);
 void	free_mlx(t_data *mlx);
+void	assign_texture(t_data *mlx);
 
 //======================PARSING==================================
 char	**copy_the_map(char *argv);

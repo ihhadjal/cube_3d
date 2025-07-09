@@ -6,56 +6,45 @@
 /*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 02:28:43 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/09 03:58:17 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:37:38 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../resources/cube.h"
 
-void	init_text(t_data *mlx)
-{
-	int		i;
-
-	i = 0;
-	mlx->texture = NULL;
-	mlx->texture = malloc(sizeof(t_text) * 5);
-	while (mlx->map->before_map[i] && i < 4)
-	{
-		mlx->texture[i].path = ft_strchr(mlx->map->before_map[i], '.');
-		mlx->texture[i].th = 0;
-		mlx->texture[i].tw = 0;
-		mlx->texture[i].texx = 0;
-		mlx->texture[i].texy = 0;
-		mlx->texture[i].texpos = 0;
-		i++;
-	}
-	mlx->texture[4].path = NULL;
-}
-
-void	my_mlx_init(t_data *mlx)
+void	init_texture(t_text *texture, t_data *mlx, char *str)
 {
 	int	i;
 
 	i = 0;
+	while (mlx->map->before_map[i])
+	{
+		if (!ft_strncmp(mlx->map->before_map[i], str, 2))
+			break ;
+		i++;
+	}
+	texture->path = ft_strchr(mlx->map->before_map[i], '.');
+	texture->th = 0;
+	texture->tw = 0;
+	texture->texx = 0;
+	texture->texy = 0;
+	texture->texpos = 0;
+}
+
+void	my_mlx_init(t_data *mlx)
+{
 	mlx->ptr = mlx_init();
 	mlx->num = 0;
 	mlx->has_moved = false;
-	init_text(mlx);
 	mlx->ceiling = find_color(mlx, 'C');
 	mlx->floor = find_color(mlx, 'F');
-	while (mlx->texture[i].path)
-	{
-		mlx->texture[i].tex = mlx_xpm_file_to_image(mlx->ptr,
-				mlx->texture[i].path, &mlx->texture[i].tw, &mlx->texture[i].th);
-		if (!mlx->texture[i].tex)
-			mlx_loop_end(mlx->ptr);
-		mlx->texture[i].tex_addr = mlx_get_data_addr(mlx->texture[i].tex,
-				&mlx->texture[i].bpp, &mlx->texture[i].line_length,
-				&mlx->texture[i].endian);
-		if (!mlx->texture[i].tex_addr)
-			mlx_loop_end(mlx->ptr);
-		i++;
-	}
+	mlx->texture = malloc(sizeof(t_text) * 5);
+	init_texture(&mlx->texture[0], mlx, "NO");
+	init_texture(&mlx->texture[2], mlx, "WE");
+	init_texture(&mlx->texture[3], mlx, "EA");
+	init_texture(&mlx->texture[1], mlx, "SO");
+	mlx->texture[4].path = NULL;
+	assign_texture(mlx);
 	mlx->cam_height = 900;
 	mlx->cam_length = 900;
 }

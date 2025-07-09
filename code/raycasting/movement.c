@@ -6,7 +6,7 @@
 /*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 02:26:24 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/09 03:55:13 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/09 19:55:36 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int	on_keypress(int keycode, t_data *mlx)
 		mlx->key_up = true;
 	if (keycode == S)
 		mlx->key_down = true;
+	if (keycode == RIGHT)
+		mlx->right = true;
+	if (keycode == LEFT)
+		mlx->left = true;
 	return (0);
 }
 
@@ -37,6 +41,10 @@ int	on_release(int keycode, t_data *mlx)
 		mlx->key_up = false;
 	if (keycode == S)
 		mlx->key_down = false;
+	if (keycode == RIGHT)
+		mlx->right = false;
+	if (keycode == LEFT)
+		mlx->left = false;
 	return (0);
 }
 
@@ -45,7 +53,7 @@ void	rotate(t_data *mlx, int keycode)
 	double	olddirx;
 	double	oldplanex;
 
-	if (keycode == A)
+	if (keycode == LEFT)
 	{
 		olddirx = mlx->pos->dirx;
 		mlx->pos->dirx = mlx->pos->dirx * cos(-RS)
@@ -95,14 +103,45 @@ void	move_up_and_down(t_data **mlx, int keycode)
 	}
 }
 
+void	move_right_and_left(t_data **mlx, int keycode)
+{
+	int	mapx_plus;
+	int	mapy_plus;
+	int	mapx_down;
+	int	mapy_down;
+
+	mapx_plus = (int)((*mlx)->pos->posx + (*mlx)->pos->dirx * MOVESPEED);
+	mapy_plus = (int)((*mlx)->pos->posy + (*mlx)->pos->diry * MOVESPEED);
+	mapx_down = (int)((*mlx)->pos->posx - (*mlx)->pos->dirx * MOVESPEED);
+	mapy_down = (int)((*mlx)->pos->posy - (*mlx)->pos->diry * MOVESPEED);
+	if (keycode == A)
+	{
+		if ((*mlx)->map->map_copy[(int)((*mlx)->pos->posy)][mapx_plus] != '1')
+			(*mlx)->pos->posx += (*mlx)->pos->dirx * MOVESPEED;
+		if ((*mlx)->map->map_copy[mapy_plus][(int)((*mlx)->pos->posx)] != '1')
+			(*mlx)->pos->posy += (*mlx)->pos->diry * MOVESPEED;
+	}
+	else
+	{
+		if ((*mlx)->map->map_copy[(int)((*mlx)->pos->posy)][mapx_down] != '1')
+			(*mlx)->pos->posx -= (*mlx)->pos->dirx * MOVESPEED;
+		if ((*mlx)->map->map_copy[mapy_down][(int)((*mlx)->pos->posx)] != '1')
+			(*mlx)->pos->posy -= (*mlx)->pos->diry * MOVESPEED;
+	}
+}
+
 int	move_player(t_data **mlx)
 {
 	if ((*mlx)->key_up)
 		move_up_and_down(mlx, W);
 	if ((*mlx)->key_right)
-		rotate(*mlx, D);
+		move_right_and_left(mlx, D);
 	if ((*mlx)->key_left)
-		rotate(*mlx, A);
+		move_right_and_left(mlx, A);
+	if ((*mlx)->right)
+		rotate(*mlx, RIGHT);
+	if ((*mlx)->left)
+		rotate(*mlx, LEFT);
 	if ((*mlx)->key_down)
 		move_up_and_down(mlx, S);
 	(*mlx)->has_moved = true;
