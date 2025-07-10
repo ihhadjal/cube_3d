@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 11:22:31 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/10 15:08:21 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:14:31 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**skip_lines(char **map_copy, char *argv, t_map *map)
 			c++;
 		}
 		if (condition(c, map) == 1)
-			break;
+			break ;
 		i++;
 		free(map->trim_str);
 	}
