@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: iheb <iheb@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:02:47 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/09 19:37:49 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 10:11:16 by iheb             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,32 @@ void	doubles_check(char **before_map)
 	{
 		printf("error: double coordinates found in map\n");
 		exit(1);
+	}
+}
+
+void	check2(char **map)
+{
+	int	i;
+	int	j;
+	int	c;
+
+	i = 0;
+	c = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S' 
+				|| map[i][j] == 'W' || map[i][j] == 'E')
+				c++;
+			j++;
+		}
+		i++;
+	}
+	if (c > 1)
+	{
+		printf("error: player has two positions\n");
+		exit (1);
 	}
 }

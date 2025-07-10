@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: iheb <iheb@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:18:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/09 19:32:57 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 10:07:53 by iheb             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	check_doubles(char **map_copy)
 
 	i = 0;
 	c = 0;
+	check2(map_copy);
 	while (map_copy[i])
 	{
 		if (ft_strchr(map_copy[i], 'S') || ft_strchr(map_copy[i], 'E')
