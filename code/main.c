@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:02 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/10 16:26:10 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:26:14 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(int argc, char **argv)
 		mlx->win = mlx_new_window(mlx->ptr, mlx->cam_length,
 				mlx->cam_height, "Bomboclaat");
 		draw_fov(mlx);
-		printf("height = %d\n", mlx->map->height);
 		if (!mlx->win)
 			mlx_loop_end(mlx->ptr);
 		mlx_hook(mlx->win, 2, 1L << 0, on_keypress, mlx);

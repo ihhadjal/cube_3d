@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/10 16:24:52 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:27:34 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define S 115
 # define LEFT 65361
 # define RIGHT 65363
-# define RS 0.015
-# define MOVESPEED 2
+# define RS 0.02
+# define MOVESPEED 0.02
 
 typedef struct s_ray
 {
@@ -171,7 +171,6 @@ void	algo_init(t_data **data);
 int		on_keypress(int keycode, t_data *mlx);
 int		on_release(int keycode, t_data *mlx);
 void	rotate(t_data *mlx, int keycode);
-void	move_up_and_down(t_data **mlx, int keycode);
 int		move_player(t_data **mlx);
 int		free_all1(t_data *mlx);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -195,6 +194,10 @@ t_color	*find_color(t_data *mlx, char c);
 void	free_mlx(t_data *mlx);
 void	assign_texture(t_data *mlx);
 int		cal_h(char **map);
+void	move_up(t_data **mlx);
+void	move_down(t_data **mlx);
+void	move_right(t_data **mlx);
+void	move_left(t_data **mlx);
 
 //======================PARSING==================================//
 char	**copy_the_map(char *argv);

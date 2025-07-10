@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 02:46:00 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/10 15:19:27 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/11 00:08:05 by ilhasnao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	assign_drawing_limits(t_data *data)
 	if (data->algo->perpwalldist < 0.0001)
 		data->algo->perpwalldist = 0.0001;
 	data->algo->lineheight = (int)(data->cam_height / data->algo->perpwalldist);
+	if (data->algo->lineheight < 1)
+		data->algo->lineheight = 1;
 	data->algo->drawstart = data->cam_height / 2 - data->algo->lineheight / 2;
 	data->algo->drawend = data->algo->lineheight / 2 + data->cam_height / 2;
 	if (data->algo->drawstart < 0)
