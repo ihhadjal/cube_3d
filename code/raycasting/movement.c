@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 02:26:24 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/09 19:55:36 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:04:15 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void	move_up_and_down(t_data **mlx, int keycode)
 	int	mapx_down;
 	int	mapy_down;
 
-	mapx_plus = (int)((*mlx)->pos->posx + (*mlx)->pos->dirx * MOVESPEED);
-	mapy_plus = (int)((*mlx)->pos->posy + (*mlx)->pos->diry * MOVESPEED);
-	mapx_down = (int)((*mlx)->pos->posx - (*mlx)->pos->dirx * MOVESPEED);
-	mapy_down = (int)((*mlx)->pos->posy - (*mlx)->pos->diry * MOVESPEED);
+	mapx_plus = (int)((*mlx)->pos->posx + (*mlx)->pos->dirx * 15 * MOVESPEED);
+	mapy_plus = (int)((*mlx)->pos->posy + (*mlx)->pos->diry * 15 * MOVESPEED);
+	mapx_down = (int)((*mlx)->pos->posx - (*mlx)->pos->dirx * 15 * MOVESPEED);
+	mapy_down = (int)((*mlx)->pos->posy - (*mlx)->pos->diry * 15 * MOVESPEED);
 	if (keycode == W)
 	{
 		if ((*mlx)->map->map_copy[(int)((*mlx)->pos->posy)][mapx_plus] != '1')
@@ -110,23 +110,23 @@ void	move_right_and_left(t_data **mlx, int keycode)
 	int	mapx_down;
 	int	mapy_down;
 
-	mapx_plus = (int)((*mlx)->pos->posx + (*mlx)->pos->dirx * MOVESPEED);
-	mapy_plus = (int)((*mlx)->pos->posy + (*mlx)->pos->diry * MOVESPEED);
-	mapx_down = (int)((*mlx)->pos->posx - (*mlx)->pos->dirx * MOVESPEED);
-	mapy_down = (int)((*mlx)->pos->posy - (*mlx)->pos->diry * MOVESPEED);
-	if (keycode == A)
+	mapx_plus = (int)((*mlx)->pos->posx + (*mlx)->pos->planex * 15 * MOVESPEED);
+	mapy_plus = (int)((*mlx)->pos->posy + (*mlx)->pos->planey * 15 * MOVESPEED);
+	mapx_down = (int)((*mlx)->pos->posx - (*mlx)->pos->planex * 15 * MOVESPEED);
+	mapy_down = (int)((*mlx)->pos->posy - (*mlx)->pos->planey * 15 * MOVESPEED);
+	if (keycode == D)
 	{
 		if ((*mlx)->map->map_copy[(int)((*mlx)->pos->posy)][mapx_plus] != '1')
-			(*mlx)->pos->posx += (*mlx)->pos->dirx * MOVESPEED;
+			(*mlx)->pos->posx += (*mlx)->pos->planex * MOVESPEED;
 		if ((*mlx)->map->map_copy[mapy_plus][(int)((*mlx)->pos->posx)] != '1')
-			(*mlx)->pos->posy += (*mlx)->pos->diry * MOVESPEED;
+			(*mlx)->pos->posy += (*mlx)->pos->planey * MOVESPEED;
 	}
 	else
 	{
 		if ((*mlx)->map->map_copy[(int)((*mlx)->pos->posy)][mapx_down] != '1')
-			(*mlx)->pos->posx -= (*mlx)->pos->dirx * MOVESPEED;
+			(*mlx)->pos->posx -= (*mlx)->pos->planex * MOVESPEED;
 		if ((*mlx)->map->map_copy[mapy_down][(int)((*mlx)->pos->posx)] != '1')
-			(*mlx)->pos->posy -= (*mlx)->pos->diry * MOVESPEED;
+			(*mlx)->pos->posy -= (*mlx)->pos->planey * MOVESPEED;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 02:46:00 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/09 04:08:01 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:19:27 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	hit_loop(t_data *data)
 			data->algo->mapy += data->algo->stepy;
 			data->algo->side = 1;
 		}
+		if (!data->map->map_copy[data->algo->mapy][data->algo->mapx])
+			return ;
 		if (data->map->map_copy[data->algo->mapy][data->algo->mapx] == '1')
 			data->algo->hit = 1;
 	}

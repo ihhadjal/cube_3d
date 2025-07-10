@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/09 19:18:35 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:48:12 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ typedef struct s_data
 	t_dda		*algo;
 }			t_data;
 
-//======================RAYCASTING===============================
+//======================RAYCASTING===============================//
 int		parsing(int argc, char **argv, t_map *map);
 int		check_file_name(char *argv);
 char	**copy_the_map(char *argv);
@@ -195,7 +195,7 @@ t_color	*find_color(t_data *mlx, char c);
 void	free_mlx(t_data *mlx);
 void	assign_texture(t_data *mlx);
 
-//======================PARSING==================================
+//======================PARSING==================================//
 char	**copy_the_map(char *argv);
 void	check_fd(int fd);
 int		count_lines(char *argv);

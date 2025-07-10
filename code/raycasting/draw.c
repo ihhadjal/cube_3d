@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 02:55:38 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/09 04:01:25 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:30:35 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	draw_fov(t_data *mlx)
 	mlx->pos->time = 0;
 	mlx->pos->old_time = 0;
 	get_coordinates(mlx, &mlx->pos->posx, &mlx->pos->posy);
+	mlx->pos->posx += 0.1;
+	mlx->pos->posy += 0.1;
 	mlx->pos->planex = 0;
 	mlx->pos->planey = 0;
 	determine_angle(mlx);
@@ -27,6 +29,8 @@ void	draw_fov(t_data *mlx)
 	mlx->key_down = false;
 	mlx->key_left = false;
 	mlx->key_right = false;
+	mlx->right = false;
+	mlx->left = false;
 	mlx->ray = malloc(sizeof(t_ray));
 	mlx->algo = malloc(sizeof(t_dda));
 	loop(mlx);
