@@ -6,13 +6,13 @@
 #    By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:33:52 by ilhasnao          #+#    #+#              #
-#    Updated: 2025/07/10 14:13:39 by ihhadjal         ###   ########.fr        #
+#    Updated: 2025/07/10 14:52:42 by ihhadjal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LIBFT = resources/libft/
 RM = rm -f
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm

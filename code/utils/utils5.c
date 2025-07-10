@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iheb <iheb@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:02:47 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/10 10:11:16 by iheb             ###   ########.fr       */
+/*   Updated: 2025/07/10 14:58:39 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	doubles_check(char **before_map)
 	}
 	if (map.no > 1 || map.so > 1 || map.ea > 1 || map.we > 1)
 	{
-		printf("error: double coordinates found in map\n");
+		ft_error("error: coordinates not found\n", before_map);
 		exit(1);
 	}
 }
@@ -54,8 +54,8 @@ void	check2(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' 
-				|| map[i][j] == 'W' || map[i][j] == 'E')
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
+				|| map[i][j] == 'E')
 				c++;
 			j++;
 		}
@@ -63,7 +63,7 @@ void	check2(char **map)
 	}
 	if (c > 1)
 	{
-		printf("error: player has two positions\n");
-		exit (1);
+		ft_error("error: player has two positions", map);
+		exit(1);
 	}
 }

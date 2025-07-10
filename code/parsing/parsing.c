@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/10 14:11:26 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:58:10 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,16 @@ void	check_map_validity(char **map_copy)
 	find_position(map_copy);
 	while (map_copy[i])
 	{
-		check_characters(map_copy[i]);
+		if (check_characters(map_copy[i]) == 1)
+		{
+			ft_error("error: invalid character inside the map\n", &map_copy[i]);
+			exit(1);
+		}
 		i++;
 	}
 }
 
-void	check_characters(char *map_copy)
+int	check_characters(char *map_copy)
 {
 	int	i;
 
@@ -114,10 +118,8 @@ void	check_characters(char *map_copy)
 			&& (map_copy[i] != 'N' && map_copy[i] != 'S') && (map_copy[i] != 'E'
 				&& map_copy[i] != 'W') && (map_copy[i] != '\t'
 				&& map_copy[i] != '\0'))
-		{
-			printf("error: invalid character found\n");
-			exit(1);
-		}
+			return (1);
 		i++;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 11:27:28 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 16:22:35 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:42:06 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	big_condition(char **rec_map, int i, int j)
 				|| rec_map[i][j - 1] == 'N' || rec_map[i][j - 1] == 'S'
 				|| rec_map[i][j - 1] == 'E' || rec_map[i][j - 1] == 'W')))
 	{
-		printf("error: space found inside the map\n");
+		ft_error("error: space found inside the map\n", rec_map);
 		exit(1);
 	}
 }

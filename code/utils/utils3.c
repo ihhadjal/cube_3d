@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:18:41 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/10 14:11:21 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:58:23 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	check_paths(char **before_map)
 		{
 			if (open(split_str[1], O_RDONLY) == -1)
 			{
-				printf("error: path not found\n");
+				ft_error("error: path not found\n", before_map);
 				free_map(split_str);
 				exit(1);
 			}
 			if (check_xpm(split_str[1]) == 1)
 			{
-				printf("error: xpm only\n");
+				ft_error("error: xpm only\n", before_map);
 				exit(1);
 			}
 		}
@@ -62,7 +62,7 @@ void	check_instructions(char **before_map)
 	}
 	if (c != 6)
 	{
-		printf("error: wrong map instructions\n");
+		ft_error("error: wrong map instructions\n", before_map);
 		exit(1);
 	}
 }
@@ -100,7 +100,7 @@ void	check_doubles(char **map_copy)
 			c++;
 		if (c > 1)
 		{
-			printf("error: player has two positions\n");
+			ft_error("error: player has two positions\n", map_copy);
 			exit(1);
 		}
 		i++;

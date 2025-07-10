@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 03:34:00 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/09 03:35:43 by ilhasnao         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:39:05 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	free_all1(t_data *mlx)
 		mlx_destroy_display(mlx->ptr);
 		free(mlx->ptr);
 	}
-	free_maps(mlx->map);
 	free(mlx);
 	exit(0);
 	return (0);
