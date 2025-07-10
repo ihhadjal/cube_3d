@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/10 14:59:17 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:08:41 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,4 +233,5 @@ void			check_c_f(char **split_str);
 void			doubles_check(char **str);
 void			check(char **str, t_map *map);
 void			check2(char **map);
+int				condition(int c, t_map *map);
 #endif

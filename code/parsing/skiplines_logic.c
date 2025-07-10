@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 11:22:31 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/06/30 16:24:57 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:08:21 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ char	**skip_lines(char **map_copy, char *argv, t_map *map)
 	while (map_copy[i])
 	{
 		map->trim_str = ft_strtrim(map_copy[i], " \t\n\v\f\r");
-		if (map->trim_str[0] != '\0')
+		if (map->trim_str && map->trim_str[0] != '\0')
 		{
 			map->before_map[j] = map_copy[i];
 			j++;
 			c++;
 		}
-		if (c == 6)
-			break ;
+		if (condition(c, map) == 1)
+			break;
 		i++;
 		free(map->trim_str);
 	}

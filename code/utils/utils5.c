@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:02:47 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/10 14:58:39 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:08:26 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,14 @@ void	check2(char **map)
 		ft_error("error: player has two positions", map);
 		exit(1);
 	}
+}
+
+int	condition(int c, t_map *map)
+{
+	if (c == 6)
+	{
+		free(map->trim_str);
+		return (1);
+	}
+	return (0);
 }

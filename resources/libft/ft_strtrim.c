@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:00:32 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/06/28 15:34:22 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:04:42 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,20 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	first;
 	size_t	last;
+	size_t	len;
 
-	last = ft_strlen(s1) - 1;
-	first = 0;
 	if (!s1 || !set)
 		return (NULL);
+	len = ft_strlen(s1);
+	if (len == 0)
+		return (ft_strdup(""));
+	last = len - 1;
+	first = 0;
 	while (s1[first] && to_find(set, s1[first]))
 	{
 		first++;
 	}
-	while (s1[last] && to_find(set, s1[last]))
+	while (last > first && to_find(set, s1[last]))
 	{
 		last--;
 	}
