@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+         #
+#    By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:33:52 by ilhasnao          #+#    #+#              #
-#    Updated: 2025/07/09 03:34:18 by ilhasnao         ###   ########.fr        #
+#    Updated: 2025/07/10 16:25:09 by hasnawww         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC_1 = code/main.c code/parsing/parsing.c code/utils/utils.c code/parsing/skipl
 		code/utils/utils2.c code/parsing/flood_fill.c code/utils/utils3.c code/utils/utils4.c \
 		code/raycasting/init.c code/raycasting/movement.c code/raycasting/utils.c code/raycasting/dda.c \
 		code/raycasting/draw.c code/raycasting/angles_n_color.c code/raycasting/free.c \
+		code/raycasting/cal_h.c 
 
 OBJ_1 = $(SRC_1:.c=.o)
 

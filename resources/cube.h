@@ -6,7 +6,7 @@
 /*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/10 14:48:12 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:24:52 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define S 115
 # define LEFT 65361
 # define RIGHT 65363
-# define RS	0.015
-# define MOVESPEED	0.015
+# define RS 0.015
+# define MOVESPEED 2
 
 typedef struct s_ray
 {
@@ -194,6 +194,7 @@ void	assign_angle(t_data *mlx, int i, int j);
 t_color	*find_color(t_data *mlx, char c);
 void	free_mlx(t_data *mlx);
 void	assign_texture(t_data *mlx);
+int		cal_h(char **map);
 
 //======================PARSING==================================//
 char	**copy_the_map(char *argv);

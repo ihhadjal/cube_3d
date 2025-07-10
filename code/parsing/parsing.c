@@ -6,7 +6,7 @@
 /*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:06:37 by ihhadjal          #+#    #+#             */
-/*   Updated: 2025/07/07 09:32:46 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:28:05 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	parsing(int argc, char **argv, t_map *map)
 		map->dummy_map = map_scan(map->skip_map, argv[1]);
 		map->rectangular_map = create_rectangular(map->dummy_map, map);
 		check_rectangular(map->rectangular_map);
+		map->height = cal_h(map->after_map);
 	}
 	else
 	{

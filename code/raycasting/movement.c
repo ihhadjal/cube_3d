@@ -6,7 +6,7 @@
 /*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 02:26:24 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/10 15:04:15 by hasnawww         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:33:01 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ void	move_up_and_down(t_data **mlx, int keycode)
 	mapy_plus = (int)((*mlx)->pos->posy + (*mlx)->pos->diry * 15 * MOVESPEED);
 	mapx_down = (int)((*mlx)->pos->posx - (*mlx)->pos->dirx * 15 * MOVESPEED);
 	mapy_down = (int)((*mlx)->pos->posy - (*mlx)->pos->diry * 15 * MOVESPEED);
+	if (mapy_plus > (*mlx)->map->height || mapy_down < (*mlx)->map->height
+		|| mapx_down < ft_strlen((*mlx)->map->map_copy[(int)((*mlx)->pos->posy)])
+		|| mapx_down > ft_strlen((*mlx)->map->map_copy[(int)((*mlx)->pos->posy)]))
+		return ;
 	if (keycode == W)
 	{
 		if ((*mlx)->map->map_copy[(int)((*mlx)->pos->posy)][mapx_plus] != '1')
