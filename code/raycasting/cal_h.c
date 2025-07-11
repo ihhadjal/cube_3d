@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   cal_h.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilhasnao <ilhasnao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hasnawww <hasnawww@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 09:33:00 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/10 23:18:04 by ilhasnao         ###   ########.fr       */
+/*   Created: 2025/07/10 16:24:02 by hasnawww          #+#    #+#             */
+/*   Updated: 2025/07/10 17:28:09 by hasnawww         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "../../resources/cube.h"
 
-int	ft_strlen(const char *c)
+int	cal_h(char **map)
 {
 	int	i;
+	int	j;
+	int	h;
 
+	h = 0;
 	i = 0;
-	while (c[i] != '\0')
+	while (map[i])
 	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '1')
+			{
+				h++;
+				break ;
+			}
+			j++;
+		}
 		i++;
 	}
-	return (i);
+	return (h);
 }

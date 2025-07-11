@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/10 15:08:41 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/11 13:18:32 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define S 115
 # define LEFT 65361
 # define RIGHT 65363
-# define RS 0.015
-# define MOVESPEED 0.015
+# define RS 0.02
+# define MOVESPEED 0.02
 
 typedef struct s_ray
 {
@@ -156,13 +156,13 @@ typedef struct s_data
 	t_dda		*algo;
 }				t_data;
 
-//======================RAYCASTING===============================
+//======================RAYCASTING===============================//
 int				parsing(int argc, char **argv, t_map *map);
 int				check_file_name(char *argv);
 char			**copy_the_map(char *argv);
 void			check_fd(int fd);
 int				count_lines(char *argv);
-int				check_caracters(char **map_copy);
+int				check_caracters(char *map_copy);
 void			print_map(char **map);
 int				move_player(t_data **mlx);
 void			ray_trace(t_data *data);
@@ -175,7 +175,6 @@ void			algo_init(t_data **data);
 int				on_keypress(int keycode, t_data *mlx);
 int				on_release(int keycode, t_data *mlx);
 void			rotate(t_data *mlx, int keycode);
-void			move_up_and_down(t_data **mlx, int keycode);
 int				move_player(t_data **mlx);
 int				free_all1(t_data *mlx);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -198,10 +197,13 @@ void			assign_angle(t_data *mlx, int i, int j);
 t_color			*find_color(t_data *mlx, char c);
 void			free_mlx(t_data *mlx);
 void			assign_texture(t_data *mlx);
+int				cal_h(char **map);
+void			move_up(t_data **mlx);
+void			move_down(t_data **mlx);
+void			move_right(t_data **mlx);
+void			move_left(t_data **mlx);
 
-//======================PARSING==================================
-int				parsing(int argc, char **argv, t_map *map);
-int				check_file_name(char *argv);
+//======================PARSING==================================//
 char			**copy_the_map(char *argv);
 void			check_fd(int fd);
 int				count_lines(char *argv);
@@ -230,8 +232,7 @@ int				is_alpha(char *str);
 int				check_xpm(char *str);
 void			check_rgb(char *str);
 void			check_c_f(char **split_str);
-void			doubles_check(char **str);
-void			check(char **str, t_map *map);
-void			check2(char **map);
 int				condition(int c, t_map *map);
+void	doubles_check(char **before_map);
+void	check2(char **map);
 #endif

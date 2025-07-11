@@ -6,21 +6,22 @@
 #    By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:33:52 by ilhasnao          #+#    #+#              #
-#    Updated: 2025/07/10 15:00:23 by ihhadjal         ###   ########.fr        #
+#    Updated: 2025/07/11 13:18:56 by ihhadjal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LIBFT = resources/libft/
 RM = rm -f
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 SRC_1 = code/main.c code/parsing/parsing.c code/utils/utils.c code/parsing/skiplines_logic.c \
-code/utils/utils2.c code/parsing/flood_fill.c code/utils/utils3.c code/utils/utils4.c code/utils/utils5.c \
-code/raycasting/init.c code/raycasting/movement.c code/raycasting/utils.c code/raycasting/dda.c \
-code/raycasting/draw.c code/raycasting/angles_n_color.c code/raycasting/free.c \
+		code/utils/utils2.c code/parsing/flood_fill.c code/utils/utils3.c code/utils/utils4.c \
+		code/raycasting/init.c code/raycasting/movement.c code/raycasting/utils.c code/raycasting/dda.c \
+		code/raycasting/draw.c code/raycasting/angles_n_color.c code/raycasting/free.c \
+		code/raycasting/cal_h.c code/raycasting/move_utils.c code/utils/utils5.c
 
 OBJ_1 = $(SRC_1:.c=.o)
 
