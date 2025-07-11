@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:20:58 by ilhasnao          #+#    #+#             */
-/*   Updated: 2025/07/11 13:18:32 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/07/11 13:20:51 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,6 @@ int				check_xpm(char *str);
 void			check_rgb(char *str);
 void			check_c_f(char **split_str);
 int				condition(int c, t_map *map);
-void	doubles_check(char **before_map);
-void	check2(char **map);
+void			doubles_check(char **before_map);
+void			check2(char **map);
 #endif
